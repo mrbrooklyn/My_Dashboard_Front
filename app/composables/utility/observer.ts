@@ -29,7 +29,5 @@ export function useBannerObserver(bannerIds: string[], threshold = 0.5) {
     observer?.disconnect();
   });
 
-  return {
-    activeBanner,
-  };
+  return { activeBanner };
 }

@@ -9,8 +9,8 @@ defineProps<Props>()
 
 <template>
   <div
-    class="px-3 py-1.5 hover:cursor-pointer hover:shadow-md first:rounded-l-2xl last:rounded-r-2xl text-gray-600 transition"
-    :class="active ? 'bg-gray-700/10 font-semibold' : 'bg-white/60 '"
+    class="px-3 py-1.5 hover:cursor-pointer hover:shadow-md first:rounded-l-2xl last:rounded-r-2xl transition"
+    :class="active ? 'bg-[var(--color-dark-gray)]/10 font-semibold text-[var(--color-dark-brown)]' : 'text-[var(--color-dark-gray)] bg-white/60 '"
     @click="onClick(value)"
   >
     <slot></slot>
