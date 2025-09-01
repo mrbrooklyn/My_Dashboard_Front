@@ -25,7 +25,7 @@ const { activeBanner } = useBannerObserver([
         <img
             :src="Brown"
             alt="Brown"
-            class="absolute bottom-5 left-0 w-60 h-60 transition-all duration-300"
+            class="absolute bottom-5 left-0 w-60 h-60 transition-all duration-500"
             :class="activeBanner === BannerType.SecondBanner ? 'opacity-100 translate-x-10 visible' : 'opacity-0 translate-x-0 invisible'"
         />
     </div>

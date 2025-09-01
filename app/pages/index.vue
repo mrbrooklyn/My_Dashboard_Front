@@ -22,8 +22,8 @@ const { activeBanner } = useBannerObserver([
     <BannerIndicatorPanel class="z-10" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
     <BannerHomeBanner 
       :id="BannerType.FirstBanner"
-      title="Lorem ipsum"
-      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim"
+      title="LOREM IPSUM"
+      content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim."
     />
     <BannerPlaygroundBanner :id="BannerType.SecondBanner"/>
     <BannerContactBanner :id="BannerType.ThirdBanner"/>

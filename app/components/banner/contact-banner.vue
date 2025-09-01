@@ -52,7 +52,7 @@ const { activeBanner } = useBannerObserver([
             <img
                 :src="Decor01"
                 alt="Contact-Decoration-01"
-                class="w-full h-full transition-all duration-300"
+                class="w-full h-full transition-all duration-500"
                 :class="activeBanner === BannerType.ThirdBanner
                     ? 'opacity-100 translate-y-0 visible'
                     : 'opacity-0 translate-y-10 invisible'"
