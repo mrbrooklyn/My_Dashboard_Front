@@ -58,7 +58,7 @@ const { activeBanner } = useBannerObserver([
         </div>
 
         <!-- Decoration -->
-        <div class="absolute top-0 right-4 h-full grid grid-cols-2 gap-4 overflow-hidden">
+        <div class="absolute top-0 right-4 h-full grid grid-cols-2 gap-4 overflow-hidden pointer-events-none">
             <div class="flex items-end justify-end mr-10">
                 <img 
                     :src="Decor02" 
