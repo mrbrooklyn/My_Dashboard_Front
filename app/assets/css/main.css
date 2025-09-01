@@ -1,1 +1,30 @@
 @import "tailwindcss";
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Raleway';
+  src: url('../fonts/raleway/Raleway-Italic-VariableFont_wght.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
+html {
+  /* font-family: system-ui, sans-serif; */
+  font-family: 'Raleway';
+}
+
+.font-raleway {
+  font-family: 'Raleway';
+}
+
+.font-sans {
+  font-family: sans-serif;
+}

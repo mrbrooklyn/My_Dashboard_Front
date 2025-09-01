@@ -18,8 +18,8 @@ const { activeBanner } = useBannerObserver([
 
 <template>
   <div class="h-screen overflow-y-scroll snap-y snap-mandatory">
-    <BannerTabMenuPanel :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
-    <BannerIndicatorPanel :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
+    <BannerTabMenuPanel class="z-10" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
+    <BannerIndicatorPanel class="z-10" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
     <BannerHomeBanner 
       :id="BannerType.FirstBanner"
       title="Lorem ipsum"

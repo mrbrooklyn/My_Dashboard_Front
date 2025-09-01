@@ -19,7 +19,7 @@ const { activeBanner } = useBannerObserver([
 
 <template>
     <div
-        class="w-full h-screen bg-no-repeat bg-center bg-cover snap-start"
+        class="relative w-full h-screen bg-no-repeat bg-center bg-cover snap-start"
         :style="{ backgroundImage: `url(${BannerUrl})` }"
     >
         <img
