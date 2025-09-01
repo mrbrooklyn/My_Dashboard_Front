@@ -1,0 +1,12 @@
+:root {
+  /* Brown */
+  --color-light-brown: #eee0cf;
+  --color-medium-brown: #c7ad8c;
+  --color-dark-brown: #814c20;
+
+  /* Gray */
+  --color-custom-gray: #e0e0e0;
+  --color-light-gray: #D1D5DB;
+  --color-medium-gray: #4B5563;
+  --color-dark-gray: #374151;
+}
