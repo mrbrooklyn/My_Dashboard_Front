@@ -54,11 +54,13 @@ const onClickRegister = () => {
                 </div>
             </div>
         </div>
+
+        <!-- Decoration -->
         <div class="absolute bottom-0 right-0 w-85 h-60 md:w-135 md:h-100 lg:w-200 lg:h-150 overflow-hidden pointer-events-none">
             <img
                 :src="Decor01"
                 alt="Home-Decoration-01"
-                class="w-full h-full transition-all"
+                class="w-full h-full"
                 :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
                 :class="activeBanner === BannerType.FirstBanner
                     ? 'opacity-100 translate-x-0 visible'
