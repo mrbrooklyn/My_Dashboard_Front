@@ -7,6 +7,7 @@ import Decor04 from '~/assets/general/images/contact/contact-decor-08.png'
 import Decor05 from '~/assets/general/images/contact/contact-decor-09.png'
 import Decor10 from '~/assets/general/images/contact/contact-decor-10-1.png'
 import Decor11 from '~/assets/general/images/contact/contact-decor-11.png'
+import { toast } from 'vue3-toastify'
 import { BannerType, HomeContactState } from '~/enums/enum'
 import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
@@ -29,10 +30,16 @@ const { activeBanner } = useBannerObserver([
 const copyToClipboard = (text: string) => {
   navigator.clipboard.writeText(text)
     .then(() => {
-      alert(`Copied: ${text}`)
+        toast.success(`Copied: ${text}`, {
+            position: toast.POSITION.TOP_RIGHT,
+            autoClose: 3000,
+        })
     })
     .catch(() => {
-      alert('Failed to copy!')
+      toast.error('Failed to copy!', {
+        position: toast.POSITION.TOP_RIGHT,
+        autoClose: 3000,
+      })
     })
 }
 </script>
@@ -49,17 +56,19 @@ const copyToClipboard = (text: string) => {
                     <div 
                         v-if="item.type === HomeContactState.Text"
                         @click="copyToClipboard(item.value)" 
-                        class="flex items-center gap-x-5 hover:underline cursor-pointer"
+                        class="flex items-center gap-x-5 group cursor-pointer"
                     >
                         <img :src="item.image" class="w-6 h-6"/>
                         <p>{{ item.display }}</p>
+                        <icon name="material-symbols:content-copy" size="20" class="text-[var(--color-dark-gray)] opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <a 
                         v-if="item.type === HomeContactState.Link"
-                        :href="item.value" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-5 hover:underline"
+                        :href="item.value" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-5 group hover:underline"
                     >
                         <img :src="item.image" class="w-6 h-6"/>
                         <p>{{ item.display }}</p>
+                        <icon name="material-symbols:open-in-new" size="20" class="text-[var(--color-dark-gray)] opacity-0 group-hover:opacity-100 transition-opacity" />
                     </a>
                 </div>
             </div>

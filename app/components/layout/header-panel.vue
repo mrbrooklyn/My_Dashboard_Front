@@ -55,7 +55,7 @@ const onHamburgerClick = async () => {
         <ButtonMenu
           iconName="material-symbols:person-add-outline"
           className="h-8"
-          :onClick="handleLoginClick"
+          :onClick="handleRegisterClick"
         >
           Register
         </ButtonMenu>
