@@ -15,3 +15,8 @@ export enum BannerIndicatorState {
   Active,
   Coming,
 }
+
+export enum HomeContactState {
+  Text,
+  Link,
+}

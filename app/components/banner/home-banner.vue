@@ -48,9 +48,9 @@ const onClickRegister = () => {
                     v-if="!isAuthenticated"
                     class="flex justify-center items-center gap-x-4"
                 >
-                    <button :onClick="onClickLogin" class="text-gray-900 bg-white/40 hover:bg-gray-200 rounded-lg">LOGIN</button>
+                    <ButtonBlock :onClick="onClickLogin">LOGIN</ButtonBlock>
                     <span class="text-[var(--color-medium-gray)]">or</span>
-                    <button :onClick="onClickRegister" class="text-gray-900 bg-white/40 hover:bg-gray-200 rounded-lg">REGISTER</button>
+                    <ButtonBlock :onClick="onClickRegister">REGISTER</ButtonBlock>
                 </div>
             </div>
         </div>

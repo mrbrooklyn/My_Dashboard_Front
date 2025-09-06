@@ -28,7 +28,7 @@ const position = computed(() => {
 </script>
 
 <template>
-    <div class="relative w-full h-14 bg-white/20 overflow-hidden hover:cursor-pointer border border-[var(--color-medium-gray)] rounded-lg hover:shadow-lg transition"@click="onClick(value)">
+    <div class="relative w-full h-14 bg-white/20 overflow-hidden hover:cursor-pointer border border-[var(--color-medium-gray)]/40 rounded-lg hover:shadow-lg transition"@click="onClick(value)">
         <div :class="`absolute w-full h-full bg-gradient-to-b from-[var(--color-dark-brown)] to-[var(--color-medium-brown)] ease-in-out duration-500 ${position}`"></div>
     </div>
 </template>
