@@ -36,13 +36,13 @@ const ContactList: IContactType[] = [
   },
   { 
     type: HomeContactState.Link, 
-    display: 'https://github.com/mrbrooklyn', 
+    display: 'github.com/mrbrooklyn', 
     value: 'https://github.com/mrbrooklyn',
     image: Github
   },
   { 
     type: HomeContactState.Link,
-    display: 'https://www.linkedin.com/in/damrongdech-choekpanitsiri/', 
+    display: 'linkedin.com/in/damrongdech-choekpanitsiri', 
     value: 'https://www.linkedin.com/in/damrongdech-choekpanitsiri/',
     image: Linkedin
   },
@@ -52,7 +52,7 @@ const ContactList: IContactType[] = [
 <template>
   <BannerTabMenuPanel class="z-20" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
   <BannerIndicatorPanel class="z-20" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FirstBanner" />
-  <div class="h-screen overflow-y-scroll snap-y snap-mandatory">
+  <div class="h-full w-full overflow-y-scroll snap-y snap-mandatory">
     <div class="relative">
       <BannerHomeBanner 
         :id="BannerType.FirstBanner"
@@ -69,7 +69,7 @@ const ContactList: IContactType[] = [
   </div>
 </template>
 
-<style scoped>
+<!-- <style scoped>
 .banner-transition-1 {
     z-index: 1;
     background: linear-gradient(
@@ -89,4 +89,4 @@ const ContactList: IContactType[] = [
         transparent
     );
 }
-</style>
+</style> -->

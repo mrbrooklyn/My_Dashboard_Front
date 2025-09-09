@@ -4,6 +4,12 @@ import { handleScrollTo } from '~/composables/utility/handle-scroll'
 import { BannerType } from '~/enums/enum';
 import { useRoute, useRouter } from 'vue-router'
 
+export interface Props {
+  onHamburgerClick: () => void
+}
+
+const { onHamburgerClick } = defineProps<Props>()
+
 const router = useRouter()
 const route = useRoute()
 
@@ -28,15 +34,11 @@ const handleClick = async () => {
     }
 }
 
-const onHamburgerClick = async () => {
-
-}
-
 </script>
 
 <template>
   <div
-    class="fixed top-0 left-0 z-20 w-full h-[60px] px-2 py-4 flex justify-between items-center bg-white opacity-60 lg:px-4 lg:py-5"
+    class="fixed top-0 left-0 z-20 w-full h-[60px] flex justify-between items-center bg-white opacity-60 pl-2 pr-5 py-4 lg:pl-4 lg:pr-6 lg:py-5"
   >
     <div class="w-36 h-5 hover:cursor-pointer flex items-center" @click="handleClick">
       <img class="w-30 h-10 object-contain" alt="my-dashboard" :src="LogoText"/>

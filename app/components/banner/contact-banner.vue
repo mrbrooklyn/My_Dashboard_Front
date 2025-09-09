@@ -28,7 +28,7 @@ const { activeBanner } = useBannerObserver([
 ])
 
 const copyToClipboard = (text: string) => {
-  navigator.clipboard.writeText(text)
+     navigator.clipboard.writeText(text)
     .then(() => {
         toast.success(`Copied: ${text}`, {
             position: toast.POSITION.TOP_RIGHT,

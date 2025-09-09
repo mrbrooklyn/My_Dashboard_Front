@@ -1,14 +1,25 @@
 <script setup lang="ts">
 import { toastContainers } from 'vue3-toastify'
 import 'vue3-toastify/dist/index.css'
+import RightPanel from './components/layout/right-panel.vue';
+
+const showRightPanel = ref(false)
+
+const handleShowRightPanel = () => {
+    showRightPanel.value = true
+}
+
+const handleCloseRightPanel = () => {
+    showRightPanel.value = false
+}
+
 </script>
 
 <template>
   <toastContainers />
+  <LayoutHeaderPanel :onHamburgerClick="handleShowRightPanel" />
+  <RightPanel :show="showRightPanel" :onClosePanel="handleCloseRightPanel" />
   <div class="w-full h-screen">
-    <LayoutHeaderPanel />
-    <div class="w-full h-full overflow-y-auto">
-      <NuxtPage />
-    </div>
+    <NuxtPage />
   </div>
 </template>
