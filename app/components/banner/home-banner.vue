@@ -4,6 +4,10 @@ import Decor01 from '~/assets/general/images/home/home-decor-01.png'
 import { BannerType } from '~/enums/enum'
 import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
+import { AuthContainerType } from '~/enums/enum'
+import { useAuthStore } from '~/store/auth'
+
+const authStore = useAuthStore()
 
 export interface Props {
     title: string
@@ -20,11 +24,11 @@ const { activeBanner } = useBannerObserver([
 const isAuthenticated = ref(false); // :TODO: computed(() => store.state.auth.isAuthenticated)
 
 const onClickLogin = () => {
-    // TODO: Handle login logic
+    authStore.setSelectedAuthContainer(AuthContainerType.Login)
 };
 
 const onClickRegister = () => {
-    // TODO: Handle register logic
+    authStore.setSelectedAuthContainer(AuthContainerType.Register)
 };
 </script>
 

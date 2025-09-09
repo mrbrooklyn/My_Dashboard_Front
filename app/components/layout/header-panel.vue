@@ -1,8 +1,12 @@
 <script setup lang="ts">
-import LogoText from '~/assets/general/images/logo.svg'
+import Logo from '~/assets/general/images/logo.svg'
 import { handleScrollTo } from '~/composables/utility/handle-scroll'
 import { BannerType } from '~/enums/enum';
 import { useRoute, useRouter } from 'vue-router'
+import { AuthContainerType } from '~/enums/enum'
+import { useAuthStore } from '~/store/auth'
+
+const authStore = useAuthStore()
 
 export interface Props {
   onHamburgerClick: () => void
@@ -18,11 +22,11 @@ const isAuthenticated = computed(() => {
 })
 
 const handleLoginClick = () => {
-
+  authStore.setSelectedAuthContainer(AuthContainerType.Login)
 }
 
 const handleRegisterClick = () => {
-
+  authStore.setSelectedAuthContainer(AuthContainerType.Register)  
 }
 
 const handleClick = async () => {
@@ -41,7 +45,7 @@ const handleClick = async () => {
     class="fixed top-0 left-0 z-20 w-full h-[60px] flex justify-between items-center bg-white opacity-60 pl-2 pr-5 py-4 lg:pl-4 lg:pr-6 lg:py-5"
   >
     <div class="w-36 h-5 hover:cursor-pointer flex items-center" @click="handleClick">
-      <img class="w-30 h-10 object-contain" alt="my-dashboard" :src="LogoText"/>
+      <img class="w-30 h-10 object-contain" alt="my-dashboard" :src="Logo"/>
     </div>
     <div class="flex gap-x-3 items-center">
       <div v-if="!isAuthenticated" class="hidden sm:block">

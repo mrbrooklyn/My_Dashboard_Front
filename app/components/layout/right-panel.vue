@@ -24,6 +24,7 @@ const handleLogoutClick = () => {
 </script>
 
 <template>
+  <!-- TODO: Right Panel  -->
   <div
     class="fixed z-20 w-[300px] h-full bg-gradient-to-b from-[var(--color-light-gray)] to-[var(--color-dark-gray)] py-6 pr-4 pl-8 duration-300"
     :class="show ? 'top-0 right-0 opacity-100' : 'top-[-300px] right-[-300px] opacity-0'"

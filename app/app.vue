@@ -22,4 +22,6 @@ const handleCloseRightPanel = () => {
   <div class="w-full h-screen">
     <NuxtPage />
   </div>
+
+  <ContainerAuth />
 </template>

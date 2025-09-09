@@ -20,3 +20,8 @@ export enum HomeContactState {
   Text,
   Link,
 }
+
+export enum AuthContainerType {
+  Login = "Login",
+  Register = "Register",
+}
