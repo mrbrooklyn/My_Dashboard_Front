@@ -31,9 +31,7 @@ const handleSubmitLogin = () => {
 
 <template>
     <!-- TODO: Login Form  -->
-    <div
-        class="w-screen max-w-[390px] p-6 rounded-xl bg-gradient-to-b from-[var(--color-white)] to-[var(--color-light-gray)]"
-    >
+    <div class="w-screen max-w-[390px] p-6 rounded-t-xl rounded-b-none md:rounded-xl bg-gradient-to-b from-white to-[var(--color-light-gray)]">
         <div class="flex justify-end">
             <div
                 class="size-5 hover:cursor-pointer"

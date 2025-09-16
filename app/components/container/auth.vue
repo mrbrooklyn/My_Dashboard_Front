@@ -15,7 +15,7 @@ const clearContainer = () => {
   <Transition name="fade">
     <div
       v-if="authStore.selectedAuthContainer !== null"
-      class="fixed z-30 top-0 left-0 w-full h-full bg-black/60"
+      class="fixed z-40 top-0 left-0 w-full h-full bg-black/60"
       @click="clearContainer"
     ></div>
   </Transition>
@@ -24,7 +24,7 @@ const clearContainer = () => {
   <Transition name="slide-up">
     <div
       v-if="authStore.selectedAuthContainer !== null"
-      class="fixed z-31 left-[50%] translate-x-[-50%] bottom-0 md:bottom-[50%] md:translate-y-[50%] duration-300"
+      class="fixed z-41 left-[50%] translate-x-[-50%] bottom-0 md:bottom-[50%] md:translate-y-[50%] duration-300"
     >
       <ContainerLogin
         v-if="authStore.selectedAuthContainer === AuthContainerType.Login"
