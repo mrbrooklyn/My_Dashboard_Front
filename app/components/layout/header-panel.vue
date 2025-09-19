@@ -1,9 +1,9 @@
 <script setup lang="ts">
 import Logo from '~/assets/general/images/logo.svg'
 import { handleScrollTo } from '~/composables/utility/handle-scroll'
-import { BannerType } from '~/enums/enum';
+import { BannerType } from '~/enums';
 import { useRoute, useRouter } from 'vue-router'
-import { AuthContainerType } from '~/enums/enum'
+import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 
 const authStore = useAuthStore()

@@ -1,10 +1,10 @@
 <script setup lang="ts">
 import BannerUrl from '~/assets/general/images/banner/banner-01.png'
 import Decor01 from '~/assets/general/images/home/home-decor-01.png'
-import { BannerType } from '~/enums/enum'
+import { BannerType } from '~/enums'
 import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
-import { AuthContainerType } from '~/enums/enum'
+import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 
 const authStore = useAuthStore()

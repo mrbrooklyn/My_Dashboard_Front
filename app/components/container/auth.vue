@@ -1,5 +1,5 @@
 <script lang="ts" setup>
-import { AuthContainerType } from '~/enums/enum'
+import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 
 const authStore = useAuthStore()

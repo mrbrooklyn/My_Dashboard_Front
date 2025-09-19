@@ -1,7 +1,7 @@
 <script lang="ts" setup>
 import { onMounted } from 'vue'
 import type { RegisterForm } from '~/types/auth'
-import { AuthContainerType } from '~/enums/enum'
+import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 
 const authStore = useAuthStore()
@@ -43,39 +43,35 @@ const handleSubmitLogin = () => {
       <div class="text-2xl text-black">Register Form</div>
     </div>
     <form @submit.prevent="handleSubmitLogin">
-      <div>
-        <InputText
-          name="email"
-          type="text"
-          placeHolder="Email"
-          iconName="material-symbols:person-2-rounded"
-          :value="''"
-          :onChange="handleFormChange"
-          :errorText="''"
-        />
-      </div>
-      <div>
-        <InputText
-          name="password"
-          type="password"
-          placeHolder="Password"
-          iconName="material-symbols:key"
-          :value="''"
-          :onChange="handleFormChange"
-          :errorText="''"
-        />
-      </div>
-      <div>
-        <InputText
-          name="password"
-          type="password"
-          placeHolder="Confirm Password"
-          iconName="material-symbols:key"
-          :value="''"
-          :onChange="handleFormChange"
-          :errorText="''"
-        />
-      </div>
+      <InputText
+        name="email"
+        type="text"
+        placeHolder="Email"
+        iconName="material-symbols:person-2-rounded"
+        :value="''"
+        :onChange="handleFormChange"
+        :errorText="''"
+      />
+  
+      <InputText
+        name="password"
+        type="password"
+        placeHolder="Password"
+        iconName="material-symbols:key"
+        :value="''"
+        :onChange="handleFormChange"
+        :errorText="''"
+      />
+  
+      <InputText
+        name="password"
+        type="password"
+        placeHolder="Confirm Password"
+        iconName="material-symbols:key"
+        :value="''"
+        :onChange="handleFormChange"
+        :errorText="''"
+      />
       <div class="flex justify-center items-center mb-6">
         <button class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">Register</button>
       </div>

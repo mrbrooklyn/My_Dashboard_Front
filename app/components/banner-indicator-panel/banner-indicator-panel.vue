@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BannerIndicatorState } from '~/enums/enum'
+import { BannerIndicatorState } from '~/enums'
 import type { IBannerTabMenu } from '~/types/banner'
 import BannerIndicator from './banner-indicator.vue'
 import { handleScrollTo } from '~/composables/utility/handle-scroll'

@@ -1,4 +1,4 @@
-import { HomeContactState } from "~/enums/enum";
+import { HomeContactState } from "~/enums";
 
 export interface IContactType {
   type: HomeContactState;

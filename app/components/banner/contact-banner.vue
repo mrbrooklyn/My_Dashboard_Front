@@ -8,7 +8,8 @@ import Decor05 from '~/assets/general/images/contact/contact-decor-09.png'
 import Decor10 from '~/assets/general/images/contact/contact-decor-10-1.png'
 import Decor11 from '~/assets/general/images/contact/contact-decor-11.png'
 import { toast } from 'vue3-toastify'
-import { BannerType, HomeContactState } from '~/enums/enum'
+import { toastConfig } from "~/config";
+import { BannerType, HomeContactState } from '~/enums'
 import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
 import type { IContactType } from '~/types/home'
@@ -30,16 +31,10 @@ const { activeBanner } = useBannerObserver([
 const copyToClipboard = (text: string) => {
      navigator.clipboard.writeText(text)
     .then(() => {
-        toast.success(`Copied: ${text}`, {
-            position: toast.POSITION.TOP_RIGHT,
-            autoClose: 3000,
-        })
+        toast.success(`Copied: ${text}`, toastConfig)
     })
     .catch(() => {
-      toast.error('Failed to copy!', {
-        position: toast.POSITION.TOP_RIGHT,
-        autoClose: 3000,
-      })
+        toast.error('Failed to copy!', toastConfig)
     })
 }
 </script>

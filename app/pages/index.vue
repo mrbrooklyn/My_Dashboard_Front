@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { BannerType, BannerName, HomeContactState } from '~/enums/enum';
+import { BannerType, BannerName, HomeContactState } from '~/enums';
 import type { IBannerTabMenu } from '~/types/banner';
 import { useBannerObserver } from '~/composables/utility/observer';
 import type { IContactType } from '~/types/home';

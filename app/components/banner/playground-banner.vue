@@ -2,7 +2,7 @@
 import BannerUrl from '~/assets/general/images/banner/banner-02.png'
 import Decor01 from '~/assets/general/images/playground/playground-decor-01.png'
 import Decor02 from '~/assets/general/images/playground/playground-decor-02.png'
-import { BannerType } from '~/enums/enum'
+import { BannerType } from '~/enums'
 import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
 

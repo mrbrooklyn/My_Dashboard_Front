@@ -9,5 +9,13 @@ export default defineNuxtConfig({
     plugins: [tailwindcss()],
   },
 
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: process.env.PUBLIC_API_BASE_URL,
+    },
+  },
+
+  plugins: ["~/plugins/api.ts"],
+
   modules: ["@nuxt/icon", "@pinia/nuxt"],
 });

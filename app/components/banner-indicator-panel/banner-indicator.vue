@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { computed } from 'vue'
-import { BannerIndicatorState } from '~/enums/enum'
+import { BannerIndicatorState } from '~/enums'
 
 export interface Props {
     value: string
