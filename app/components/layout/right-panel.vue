@@ -1,4 +1,11 @@
 <script lang="ts" setup>
+import { useAuthStore } from "~/store/auth";
+import { toast } from "vue3-toastify";
+import { toastConfig } from "~/config";
+
+const authStore = useAuthStore();
+
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 export interface Props {
   show: boolean
@@ -8,7 +15,7 @@ export interface Props {
 const { onClosePanel } = defineProps<Props>()
 
 const handleMouseLeave = () => {
-    onClosePanel()
+  onClosePanel()
 }
 
 const handleLoginClick = () => {
@@ -18,7 +25,9 @@ const handleRegisterClick = () => {
 }
 
 const handleLogoutClick = () => {
-
+  toast.success("Logout.", toastConfig)
+  authStore.logout()
+  onClosePanel()
 }
 
 </script>
@@ -39,6 +48,9 @@ const handleLogoutClick = () => {
           size="30"
         />
       </div>
+    </div>
+    <div class="flex justify-end" v-if="isAuthenticated">
+      <ButtonBlock @click="handleLogoutClick()">Logout</ButtonBlock>
     </div>
   </div>
 </template>

@@ -1,10 +1,14 @@
 <script lang="ts" setup>
-import { onMounted } from 'vue'
+import { reactive, ref } from 'vue'
 import type { RegisterForm } from '~/types/auth'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
+import { useAuthService } from '~/composables/services/use-auth'
+import { toast } from "vue3-toastify";
+import { toastConfig } from "~/config";
 
 const authStore = useAuthStore()
+const authService = useAuthService();
 
 const handleHideAuthContainer = () => { 
   authStore.clearSelectedAuthContainer()
@@ -14,18 +18,76 @@ const handleShowRegisterContainer = () => {
   authStore.setSelectedAuthContainer(AuthContainerType.Login)
 }
 
-const handleFormChange = () => {
-   
+const form = reactive<RegisterForm>({
+  email: '',
+  password: '',
+  confirmPassword: '',
+})
+
+const errors = reactive<Partial<Record<keyof RegisterForm, string>>>({
+  email: '',
+  password: '',
+  confirmPassword: '',
+})
+
+const handleFormChange = (name: string, value: string, e: Event) => {
+  (form as any)[name] = value
 }
 
-const handleSubmitLogin = () => {
-   
+const validateForm = () => {
+  let valid = true
+  errors.email = ''
+  errors.password = ''
+  errors.confirmPassword = ''
+
+  if (!form.email) {
+    errors.email = 'Email is required'
+    valid = false
+  }
+
+  if (!form.password) {
+    errors.password = 'Password is required'
+    valid = false
+  }
+  
+  if (!form.confirmPassword) {
+    errors.confirmPassword = 'Confirm password is required'
+    valid = false
+  }
+  
+  if (form.password != form.confirmPassword) {
+    errors.confirmPassword = 'Password not matched'
+    valid = false
+  }
+
+  return valid
 }
 
+const handleSubmitRegister = async () => {
+  if (!validateForm()) return
+  const payload = {email: form.email, password: form.password}
+  const response = await authService.register(payload)
+  if (!response.is_success) {
+    if (typeof response.data === "string") {
+      switch(response.status_code) {
+        case 10001:
+          errors.email = response.data;
+          break;
+        case 10002:
+          errors.password = response.data;
+          break;
+        default:
+          break;
+      }
+    }
+  } else {
+    toast.success("Register success!", toastConfig);
+    handleHideAuthContainer()
+  }
+}
 </script>
 
 <template>
-  <!-- TODO: Login Form  -->
   <div class="w-screen max-w-[390px] p-6 rounded-t-xl rounded-b-none md:rounded-xl bg-gradient-to-b from-white to-[var(--color-light-gray)]">
     <div class="flex justify-end">
       <div
@@ -42,15 +104,15 @@ const handleSubmitLogin = () => {
     <div class="text-center mb-6">
       <div class="text-2xl text-black">Register Form</div>
     </div>
-    <form @submit.prevent="handleSubmitLogin">
+    <form @submit.prevent="handleSubmitRegister">
       <InputText
         name="email"
         type="text"
         placeHolder="Email"
         iconName="material-symbols:person-2-rounded"
-        :value="''"
+        :value="form.email"
         :onChange="handleFormChange"
-        :errorText="''"
+        :errorText="errors.email"
       />
   
       <InputText
@@ -58,22 +120,22 @@ const handleSubmitLogin = () => {
         type="password"
         placeHolder="Password"
         iconName="material-symbols:key"
-        :value="''"
+        :value="form.password"
         :onChange="handleFormChange"
-        :errorText="''"
+        :errorText="errors.password"
       />
   
       <InputText
-        name="password"
+        name="confirmPassword"
         type="password"
         placeHolder="Confirm Password"
         iconName="material-symbols:key"
-        :value="''"
+        :value="form.confirmPassword"
         :onChange="handleFormChange"
-        :errorText="''"
+        :errorText="errors.confirmPassword"
       />
       <div class="flex justify-center items-center mb-6">
-        <button class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">Register</button>
+        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">Register</button>
       </div>
       <div class="text-center">
         <div class="text-black">

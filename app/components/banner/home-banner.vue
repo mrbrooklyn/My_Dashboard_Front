@@ -21,7 +21,7 @@ const { activeBanner } = useBannerObserver([
   BannerType.ThirdBanner
 ])
 
-const isAuthenticated = ref(false); // :TODO: computed(() => store.state.auth.isAuthenticated)
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 const onClickLogin = () => {
     authStore.setSelectedAuthContainer(AuthContainerType.Login)

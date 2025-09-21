@@ -11,21 +11,17 @@ const authStore = useAuthStore()
 const authService = useAuthService();
 
 const handleHideAuthContainer = () => { 
-    authStore.clearSelectedAuthContainer()
+  authStore.clearSelectedAuthContainer()
 }
 
 const handleShowRegisterContainer = () => {
-    authStore.setSelectedAuthContainer(AuthContainerType.Register)
+  authStore.setSelectedAuthContainer(AuthContainerType.Register)
 }
 
 const form = reactive<LoginForm>({
   email: '',
   password: '',
 })
-// const loginInitialValues: LoginForm = {
-//     email: '',
-//     password: '',
-// }
 
 const errors = reactive<Partial<Record<keyof LoginForm, string>>>({
   email: '',
@@ -56,10 +52,11 @@ const validateForm = () => {
 
 const handleSubmitLogin = async () => {
   if (!validateForm()) return
-  const response = await authService.login(form.email, form.password)
+  const payload = {email: form.email, password: form.password}
+  const response = await authService.login(payload)
   if (!response.is_success) {
     if (typeof response.data === "string") {
-        errors.email = response.data;
+      errors.email = response.data;
     }
   } else {
     toast.success("Welcome back!", toastConfig);
@@ -87,39 +84,39 @@ const handleSubmitLogin = async () => {
     </div>
 
     <form @submit.prevent="handleSubmitLogin">
-        <InputText
-            name="email"
-            type="text"
-            placeHolder="Email"
-            iconName="material-symbols:person-2-rounded"
-            :value="form.email"
-            :onChange="handleFormChange"
-            :errorText="errors.email"
-        />
+      <InputText
+        name="email"
+        type="text"
+        placeHolder="Email"
+        iconName="material-symbols:person-2-rounded"
+        :value="form.email"
+        :onChange="handleFormChange"
+        :errorText="errors.email"
+      />
 
-        <InputText
-            name="password"
-            type="password"
-            placeHolder="Password"
-            iconName="material-symbols:key"
-            :value="form.password"
-            :onChange="handleFormChange"
-            :errorText="errors.password"
-        />
-        <button type="submit" class="bg-black text-white w-full rounded-lg mb-6">
-            Login
-        </button>
-        <div class="text-center">
-            <div class="text-black">
-                Not a member?
-                <span
-                    class="text-blue-500 underline hover:cursor-pointer"
-                    @click="handleShowRegisterContainer"
-                >
-                    Sign up now
-                </span>
-            </div>
+      <InputText
+        name="password"
+        type="password"
+        placeHolder="Password"
+        iconName="material-symbols:key"
+        :value="form.password"
+        :onChange="handleFormChange"
+        :errorText="errors.password"
+      />
+      <div class="flex justify-center items-center mb-6">
+        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">Login</button>
+      </div>
+      <div class="text-center">
+        <div class="text-black">
+          Not a member?
+          <span
+            class="text-blue-500 underline hover:cursor-pointer"
+            @click="handleShowRegisterContainer"
+          >
+            Sign up now
+          </span>
         </div>
+      </div>
     </form>
   </div>
 </template>

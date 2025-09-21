@@ -1,18 +1,21 @@
 // plugins/api.ts
-import { defineNuxtPlugin, useNuxtApp } from "#app";
+import { defineNuxtPlugin } from "#app";
+import { useAuthService } from "~/composables/services/use-auth";
 import { useAuthStore } from "~/store/auth";
 import { toast } from "vue3-toastify";
 import { toastConfig } from "~/config";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
+  const apiBaseUrl: string = config.public.apiBaseUrl;
+  const authService = useAuthService();
   const authStore = useAuthStore();
   let token: string | null = null;
 
-  // if (process.client) {
-  //   token = localStorage.getItem("access_token");
-  // }
-
+  if (process.client) {
+    token = localStorage.getItem("access_token");
+  }
+  
   const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
     const headers: HeadersInit = {
       "Content-Type": "application/json",
@@ -23,7 +26,7 @@ export default defineNuxtPlugin((nuxtApp) => {
       headers["Authorization"] = `Bearer ${token}`;
     }
 
-    const url = `${config.public.apiBaseUrl}/${endpoint.replace(/^\/+/, "")}`;
+    const url = `${apiBaseUrl}/${endpoint.replace(/^\/+/, "")}`;
 
     const response = await fetch(url, {
       ...options,
@@ -44,7 +47,21 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     if (!response.ok) {
       if (response.status === 401 && token) {
-        
+        const res = await fetch(`${apiBaseUrl}/auth/refresh-token`, {
+          method: "POST",
+          headers,
+          body: JSON.stringify({ token: token }),
+        });
+        const data = await res.json();
+
+        if (!data.is_success) {
+          authStore.logout();
+          toast.error("Session expired.", toastConfig);
+        } else {
+          let newToken = data.data.access_token;
+          localStorage.setItem("access_token", newToken);
+          window.location.reload()
+        }
       } else if (response.status === 401) {
         toast.error("Unauthorized. Please log in again.", toastConfig);
       } else if (response.status === 500) {

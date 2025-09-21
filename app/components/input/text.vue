@@ -44,7 +44,7 @@ const inputType = computed(() => {
       :disabled="props.disabled"
     />
 
-    <div class="h-6 text-red-600 text-sm mt-1">
+    <div class="min-h-6 text-red-600 text-sm mt-1 break-words">
       {{ props.errorText }}
     </div>
 

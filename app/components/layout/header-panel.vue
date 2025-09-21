@@ -17,9 +17,7 @@ const { onHamburgerClick } = defineProps<Props>()
 const router = useRouter()
 const route = useRoute()
 
-const isAuthenticated = computed(() => {
-    return false
-})
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 const handleLoginClick = () => {
   authStore.setSelectedAuthContainer(AuthContainerType.Login)
@@ -65,6 +63,9 @@ const handleClick = async () => {
         >
           Register
         </ButtonMenu>
+      </div>
+      <div v-if="isAuthenticated">
+          <p>{{ authStore.userProfile?.first_name }} {{ authStore.userProfile?.last_name }} </p>
       </div>
       <div class="flex justify-center hover:cursor-pointer" @click="onHamburgerClick">
         <Icon name="solar:hamburger-menu-linear" style="color: black" size="30"/>
