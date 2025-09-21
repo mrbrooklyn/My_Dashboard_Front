@@ -67,8 +67,8 @@ const handleClick = async () => {
       <div v-if="isAuthenticated">
           <p>{{ authStore.userProfile?.first_name }} {{ authStore.userProfile?.last_name }} </p>
       </div>
-      <div class="flex justify-center hover:cursor-pointer" @click="onHamburgerClick">
-        <Icon name="solar:hamburger-menu-linear" style="color: black" size="30"/>
+      <div v-if="isAuthenticated" class="flex justify-center hover:cursor-pointer" @click="onHamburgerClick">
+        <Icon name="solar:hamburger-menu-linear" class="text-black hover:text-gray-600" size="30"/>
       </div>
     </div>
   </div>
