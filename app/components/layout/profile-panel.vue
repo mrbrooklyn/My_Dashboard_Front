@@ -31,6 +31,20 @@ const profileErrors = reactive<Partial<Record<keyof UpdateProfileForm, string>>>
   phone: '',
 })
 
+const resetProfileForm = () => {
+  profileForm.email = authStore.userProfile?.email;
+  profileForm.first_name = authStore.userProfile?.first_name;
+  profileForm.last_name = authStore.userProfile?.last_name;
+  profileForm.phone = authStore.userProfile?.phone;
+}
+
+const resetProfileErrors = () => {
+  profileErrors.email = '';
+  profileErrors.first_name = '';
+  profileErrors.last_name = '';
+  profileErrors.phone = '';
+}
+
 const handleProfileFormChange = (name: string, value: string) => {
   (profileForm as any)[name] = value
 }
@@ -92,15 +106,25 @@ const passwordErrors = reactive<Partial<Record<keyof ChangePasswordForm, string>
   confirm_new_password: '',
 })
 
+const resetPasswordForm = () => {
+  passwordForm.old_password = '';
+  passwordForm.new_password = '';
+  passwordForm.confirm_new_password = '';
+}
+
+const resetPasswordErrors = () => {
+  passwordErrors.old_password = '';
+  passwordErrors.new_password = '';
+  passwordErrors.confirm_new_password = '';
+}
+
 const handlePasswordFormChange = (name: string, value: string) => {
   (passwordForm as any)[name] = value
 }
 
 const validatePasswordForm = () => {
   let valid = true
-  passwordErrors.old_password = ''
-  passwordErrors.new_password = ''
-  passwordErrors.confirm_new_password = ''
+  resetPasswordErrors();
 
   if (!passwordForm.old_password) {
     passwordErrors.old_password = 'Old Password is required'
@@ -118,12 +142,6 @@ const validatePasswordForm = () => {
   }
 
   return valid
-}
-
-const resetPasswordForm = () => {
-  passwordForm.old_password = ''
-  passwordForm.new_password = ''
-  passwordForm.confirm_new_password = ''
 }
 
 const handleSubmitChangePassword = async () => {
@@ -162,10 +180,10 @@ watch(
   () => prop.show,
   (newVal) => {
     if (newVal) {
-      profileForm.email = authStore.userProfile?.email
-      profileForm.first_name = authStore.userProfile?.first_name
-      profileForm.last_name = authStore.userProfile?.last_name
-      profileForm.phone = authStore.userProfile?.phone
+      resetProfileForm();
+      resetProfileErrors();
+      resetPasswordForm();
+      resetPasswordErrors();
     }
   }
 )
@@ -202,7 +220,7 @@ watch(
 
     <hr class="border-0 h-px bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent my-6">
 
-    <div class="flex-1 overflow-y-auto w-full pr-4 pl-4 ">
+    <div class="flex-1 overflow-y-auto w-full px-4 pt-2 pb-4">
       <form @submit.prevent="handleSubmitUpdateProfile">
         <div class="flex flex-col">
           <InputText
@@ -243,7 +261,7 @@ watch(
             :errorText="profileErrors.phone"
           />
         </div>
-        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-300 hover:text-black">Save Change</button>
+        <button type="submit" class="bg-[var(--color-dark-gray)] text-white w-full rounded-lg hover:bg-[var(--color-light-gray)] hover:text-black">Save Change</button>
       </form>
 
       <hr class="border-0 h-px bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent my-8">
@@ -262,7 +280,7 @@ watch(
           name="new_password"
           type="password"
           placeHolder="Password"
-          iconName="material-symbols:key"
+          iconName="material-symbols:key-outline"
           :value="passwordForm.new_password"
           :onChange="handlePasswordFormChange"
           :errorText="passwordErrors.new_password"
@@ -271,12 +289,12 @@ watch(
           name="confirm_new_password"
           type="password"
           placeHolder="Confirm Password"
-          iconName="material-symbols:key"
+          iconName="material-symbols:key-outline"
           :value="passwordForm.confirm_new_password"
           :onChange="handlePasswordFormChange"
           :errorText="passwordErrors.confirm_new_password"
         />
-        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-300 hover:text-black">Change Password</button>
+        <button type="submit" class="bg-[var(--color-dark-gray)] text-white w-full rounded-lg hover:bg-[var(--color-light-gray)] hover:text-black">Change Password</button>
       </form>
     </div>
   </div>

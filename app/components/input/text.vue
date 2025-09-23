@@ -33,16 +33,17 @@ const inputType = computed(() => {
 </script>
 
 <template>
-  <div class="relative">
+  <div class="relative floating-input">
     <input
       :name="props.name"
       :class="`bg-white focus:outline-none text-black focus:shadow-outline border border-gray-300 rounded-lg py-2 block w-full appearance-none leading-normal ${haveIcon ? 'pl-9' : 'pl-4'} ${props.disabled ? 'bg-slate-200 text-slate-400 pointer-events-none' : ''} ${props.type === 'password' ? 'pr-8' : 'pr-4'}`"
       :type="inputType"
-      :placeholder="props.placeHolder"
+      :placeholder="''"
       :value="props.value"
       @input="handleInputChange"
       :disabled="props.disabled"
     />
+    <label>{{ props.placeHolder }}</label>
 
     <div class="min-h-6 text-red-600 text-sm mt-1 break-words">
       {{ props.errorText }}
@@ -62,3 +63,26 @@ const inputType = computed(() => {
     </div>
   </div>
 </template>
+
+<style scoped>
+.floating-input label {
+  position: absolute;
+  left: 40px;
+  top: 10px;
+  color: #aaa;
+  font-size: 16px;
+  pointer-events: none;
+  transition: 0.2s ease all;
+}
+
+.floating-input input:focus + label,
+.floating-input input:not(:placeholder-shown) + label {
+  top: -8px;
+  left: 8px;
+  font-size: 12px;
+  color: #555;
+  background: white;
+  border-radius: 6px;
+  padding: 0 4px;
+}
+</style>
