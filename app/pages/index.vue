@@ -24,26 +24,26 @@ const { activeBanner } = useBannerObserver([
 const ContactList: IContactType[] = [
   { 
     type: HomeContactState.Text, 
-    display: '000-000-0000', 
-    value: '0000000000',
+    display: '080-449-9793', 
+    value: '0804499793',
     image: Phone
   },
   { 
     type: HomeContactState.Text, 
-    display: 'loremipsum@gmail.com', 
-    value: 'loremipsum@gmail.com',
+    display: 'book.damrongdech@gmail.com', 
+    value: 'book.damrongdech@gmail.com',
     image: Mail
   },
   { 
     type: HomeContactState.Link, 
-    display: 'github.com/loremipsum', 
-    value: 'https://github.com/loremipsum',
+    display: 'github.com/mrbrooklyn', 
+    value: 'https://github.com/mrbrooklyn',
     image: Github
   },
   { 
     type: HomeContactState.Link,
-    display: 'linkedin.com/in/loremipsum', 
-    value: 'https://www.linkedin.com/in/loremipsum/',
+    display: 'linkedin.com/in/damrongdech-choekpanitsiri', 
+    value: 'https://www.linkedin.com/in/damrongdech-choekpanitsiri/',
     image: Linkedin
   },
 ]

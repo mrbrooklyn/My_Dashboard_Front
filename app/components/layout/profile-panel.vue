@@ -1,10 +1,13 @@
 <script lang="ts" setup>
 import { useAuthStore } from "~/store/auth";
+import { useAuthService } from '~/composables/services/use-auth'
 import { toast } from "vue3-toastify";
 import { toastConfig } from "~/config";
-import { ref } from 'vue'
+import { ref, reactive, watch } from 'vue'
+import type { UpdateProfileForm, ChangePasswordForm } from '~/types/auth'
 
 const authStore = useAuthStore();
+const authService = useAuthService();
 
 export interface Props {
   show: boolean
@@ -14,16 +17,164 @@ export interface Props {
 
 const prop= defineProps<Props>()
 
+const profileForm = reactive<UpdateProfileForm>({
+  email: '',
+  first_name: '',
+  last_name: '',
+  phone: '',
+})
+
+const profileErrors = reactive<Partial<Record<keyof UpdateProfileForm, string>>>({
+  email: '',
+  first_name: '',
+  last_name: '',
+  phone: '',
+})
+
+const handleProfileFormChange = (name: string, value: string) => {
+  (profileForm as any)[name] = value
+}
+
+// const validateProfileForm = () => {
+//   let valid = true
+//   profileErrors.first_name = ''
+//   profileErrors.last_name = ''
+//   profileErrors.phone = ''
+
+//   if (!profileForm.first_name) {
+//     profileErrors.first_name = 'Input here'
+//     valid = false
+//   }
+
+//   if (!profileForm.last_name) {
+//     profileErrors.last_name = 'Input here'
+//     valid = false
+//   }
+  
+//   if (!profileForm.phone) {
+//     profileErrors.phone = 'Input here'
+//     valid = false
+//   }
+
+//   return valid
+// }
+
+const handleSubmitUpdateProfile = async () => {
+  // if (!validateProfileForm()) return
+  const payload = {first_name: profileForm.first_name, last_name: profileForm.last_name, phone: profileForm.phone}
+  const response = await authService.updateProfile(payload)
+  if (!response.is_success) {
+    if (typeof response.data === "string") {
+      switch(response.status_code) {
+        case 10009:
+          profileErrors.first_name = response.data;
+          profileErrors.last_name = response.data;
+          profileErrors.phone = response.data;
+          break;
+        default:
+          profileErrors.phone = response.data;
+      }
+    }
+  } else {
+    toast.success("Save success!", toastConfig);
+  }
+}
+
+const passwordForm = reactive<ChangePasswordForm>({
+  old_password: '',
+  new_password: '',
+  confirm_new_password: '',
+})
+
+const passwordErrors = reactive<Partial<Record<keyof ChangePasswordForm, string>>>({
+  old_password: '',
+  new_password: '',
+  confirm_new_password: '',
+})
+
+const handlePasswordFormChange = (name: string, value: string) => {
+  (passwordForm as any)[name] = value
+}
+
+const validatePasswordForm = () => {
+  let valid = true
+  passwordErrors.old_password = ''
+  passwordErrors.new_password = ''
+  passwordErrors.confirm_new_password = ''
+
+  if (!passwordForm.old_password) {
+    passwordErrors.old_password = 'Old Password is required'
+    valid = false
+  }
+
+  if (!passwordForm.new_password) {
+    passwordErrors.new_password = 'New Password is required'
+    valid = false
+  }
+  
+  if (!passwordForm.confirm_new_password) {
+    passwordErrors.confirm_new_password = 'Confirm New Password is required'
+    valid = false
+  }
+
+  return valid
+}
+
+const resetPasswordForm = () => {
+  passwordForm.old_password = ''
+  passwordForm.new_password = ''
+  passwordForm.confirm_new_password = ''
+}
+
+const handleSubmitChangePassword = async () => {
+  if (!validatePasswordForm()) return
+  const payload = {old_password: passwordForm.old_password, new_password: passwordForm.new_password}
+  const response = await authService.changePassword(payload)
+  if (!response.is_success) {
+    if (typeof response.data === "string") {
+      switch(response.status_code) {
+        case 10009:
+          passwordErrors.new_password = response.data;
+          passwordErrors.confirm_new_password = response.data;
+          break;
+        case 10010:
+          passwordErrors.new_password = response.data;
+          passwordErrors.confirm_new_password = response.data;
+          break;
+        case 10011:
+          passwordErrors.old_password = response.data;
+          break;
+        default:
+          passwordErrors.new_password = response.data;
+      }
+    }
+  } else {
+    toast.success("Save success!", toastConfig);
+    resetPasswordForm();
+  }
+}
+
 const handleMouseLeave = () => {
   prop.onClosePanel()
 }
+
+watch(
+  () => prop.show,
+  (newVal) => {
+    if (newVal) {
+      profileForm.email = authStore.userProfile?.email
+      profileForm.first_name = authStore.userProfile?.first_name
+      profileForm.last_name = authStore.userProfile?.last_name
+      profileForm.phone = authStore.userProfile?.phone
+    }
+  }
+)
 
 </script>
 
 <template>
   <div
-    @mouseleave="handleMouseLeave"
-    class="fixed z-30 w-screen max-w-[300px] h-full flex flex-col bg-gradient-to-b from-[var(--color-light-gray)] to-[var(--color-medium-gray)] pt-6 duration-300"
+    class="fixed z-30 w-screen max-w-[300px] h-full flex flex-col bg-gradient-to-b from-[var(--color-lavender-gray)] to-[var(--color-lavender-gray)] pt-6 duration-300"
     :class="show ? 'right-0 opacity-100' : 'right-[-300px] opacity-0'"
     id="right-panel"
   >
@@ -49,82 +200,84 @@ const handleMouseLeave = () => {
       </div>
     </div>
 
-    <hr class="border-0 h-px my-5 bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent my-2">
+    <hr class="border-0 h-px bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent my-6">
 
     <div class="flex-1 overflow-y-auto w-full pr-4 pl-4 ">
-      <div class="flex flex-col">
+      <form @submit.prevent="handleSubmitUpdateProfile">
+        <div class="flex flex-col">
+          <InputText
+            name="email"
+            type="text"
+            placeHolder="Email"
+            iconName="material-symbols:mail-outline-rounded"
+            :value="profileForm.email ?? ''"
+            :onChange="() => {}"
+            :errorText="profileErrors.email"
+            :disabled="true"
+          />
+          <InputText
+            name="first_name"
+            type="text"
+            placeHolder="First Name"
+            iconName="material-symbols:person-2-rounded"
+            :value="profileForm.first_name ?? ''"
+            :onChange="handleProfileFormChange"
+            :errorText="profileErrors.first_name"
+          />
+          <InputText
+            name="last_name"
+            type="text"
+            placeHolder="Last Name"
+            iconName="material-symbols:person-2-rounded"
+            :value="profileForm.last_name ?? ''"
+            :onChange="handleProfileFormChange"
+            :errorText="profileErrors.last_name"
+          />
+          <InputText
+            name="phone"
+            type="tel"
+            placeHolder="Phone"
+            iconName="material-symbols:call-outline-rounded"
+            :value="profileForm.phone ?? ''"
+            :onChange="handleProfileFormChange"
+            :errorText="profileErrors.phone"
+          />
+        </div>
+        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-300 hover:text-black">Save Change</button>
+      </form>
+
+      <hr class="border-0 h-px bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent my-8">
+
+      <form @submit.prevent="handleSubmitChangePassword">
         <InputText
-          name="email"
-          type="text"
-          placeHolder="Email"
-          iconName="material-symbols:mail-outline-rounded"
-          :value="''"
-          :onChange="() => {}"
-          :errorText="''"
+          name="old_password"
+          type="password"
+          placeHolder="Old Password"
+          iconName="material-symbols:key"
+          :value="passwordForm.old_password"
+          :onChange="handlePasswordFormChange"
+          :errorText="passwordErrors.old_password"
         />
         <InputText
-          name="first_name"
-          type="text"
-          placeHolder="First Name"
-          iconName="material-symbols:person-2-rounded"
-          :value="''"
-          :onChange="() => {}"
-          :errorText="''"
+          name="new_password"
+          type="password"
+          placeHolder="Password"
+          iconName="material-symbols:key"
+          :value="passwordForm.new_password"
+          :onChange="handlePasswordFormChange"
+          :errorText="passwordErrors.new_password"
         />
         <InputText
-          name="last_name"
-          type="text"
-          placeHolder="Last Name"
-          iconName="material-symbols:person-2-rounded"
-          :value="''"
-          :onChange="() => {}"
-          :errorText="''"
+          name="confirm_new_password"
+          type="password"
+          placeHolder="Confirm Password"
+          iconName="material-symbols:key"
+          :value="passwordForm.confirm_new_password"
+          :onChange="handlePasswordFormChange"
+          :errorText="passwordErrors.confirm_new_password"
         />
-        <InputText
-          name="phone"
-          type="number"
-          placeHolder="Phone"
-          iconName="material-symbols:call-outline-rounded"
-          :value="''"
-          :onChange="() => {}"
-          :errorText="''"
-        />
-      </div>
-
-      <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-300 hover:text-black">Save Change</button>
-
-      <hr class="border-0 h-px my-5 bg-gradient-to-r from-transparent via-white to-transparent my-8">
-
-      <InputText
-        name="old_password"
-        type="password"
-        placeHolder="Old Password"
-        iconName="material-symbols:key"
-        :value="''"
-        :onChange="() => {}"
-        :errorText="''"
-      />
-      <InputText
-        name="password"
-        type="password"
-        placeHolder="Password"
-        iconName="material-symbols:key"
-        :value="''"
-        :onChange="() => {}"
-        :errorText="''"
-      />
-      <InputText
-        name="confirm_password"
-        type="password"
-        placeHolder="Confirm Password"
-        iconName="material-symbols:key"
-        :value="''"
-        :onChange="() => {}"
-        :errorText="''"
-      />
-
-      <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-300 hover:text-black">Change Password</button>
-
+        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-300 hover:text-black">Change Password</button>
+      </form>
     </div>
   </div>
 </template>

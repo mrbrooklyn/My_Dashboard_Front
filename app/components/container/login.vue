@@ -56,7 +56,16 @@ const handleSubmitLogin = async () => {
   const response = await authService.login(payload)
   if (!response.is_success) {
     if (typeof response.data === "string") {
-      errors.email = response.data;
+      switch(response.status_code) {
+        case 10004:
+          errors.email = response.data;
+          break;
+        case 10006:
+          errors.password = response.data;
+          break;
+        default:
+          errors.password = response.data;
+      }
     }
   } else {
     toast.success("Welcome back!", toastConfig);

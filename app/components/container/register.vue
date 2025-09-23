@@ -77,7 +77,7 @@ const handleSubmitRegister = async () => {
           errors.password = response.data;
           break;
         default:
-          break;
+          errors.confirm_password = response.data;
       }
     }
   } else {

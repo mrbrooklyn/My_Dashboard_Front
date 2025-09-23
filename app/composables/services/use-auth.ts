@@ -1,5 +1,5 @@
 import { useNuxtApp } from "#app";
-import type { UserProfileListResponse, MeResponse, LoginPayload, RegisterPayload, TokenResponse } from "~/types/auth";
+import type { UserProfileListResponse, ProfileResponse, LoginPayload, RegisterPayload, TokenResponse, UpdateProfilePayload, ChangePasswordPayload } from "~/types/auth";
 import { Method } from "~/enums";
 import { useAuthStore } from "~/store/auth";
 
@@ -36,10 +36,10 @@ export const useAuthService = () => {
     return response;
   };
   
-  const me = async () => {
-    const response = (await $api("users/me", {
+  const profile = async () => {
+    const response = (await $api("users/profile", {
       method: Method.GET,
-    })) as MeResponse;
+    })) as ProfileResponse;
 
     if (response.data && response.is_success) {
       authStore.setUserProfile(response.data);
@@ -59,6 +59,32 @@ export const useAuthService = () => {
     }
     return response;
   };
+  
+  const updateProfile = async (payload: UpdateProfilePayload) => {
+    const response = (await $api("users/profile", {
+      method: Method.PUT,
+      body: payload,
+    })) as UserProfileListResponse;
 
-  return { login, register, me, refreshToken };
+    if (response.data && response.is_success && response.data?.access_token) {
+      localStorage.setItem("access_token", response.data?.access_token);
+      authStore.setUserProfile(response.data.user);
+    }
+    return response;
+  };
+  
+  const changePassword = async (payload: ChangePasswordPayload) => {
+    const response = (await $api("auth/reset-password", {
+      method: Method.POST,
+      body: payload,
+    })) as UserProfileListResponse;
+
+    if (response.data && response.is_success && response.data?.access_token) {
+      localStorage.setItem("access_token", response.data?.access_token);
+      authStore.setUserProfile(response.data.user);
+    }
+    return response;
+  };
+
+  return { login, register, profile, refreshToken, updateProfile, changePassword };
 };

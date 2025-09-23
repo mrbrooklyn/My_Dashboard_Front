@@ -35,7 +35,7 @@ const handleDefaultPanle = () => {
 
 onMounted(async () => {
   if(!authStore.isAuthenticated && localStorage.getItem("access_token")) {
-    await authService.me()
+    await authService.profile()
   }
 })
 </script>
