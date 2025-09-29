@@ -1,7 +1,6 @@
 import { defineStore } from "pinia";
 import { AuthContainerType } from "~/enums";
 import type { UserProfile } from "~/types/auth";
-import { useAuthService } from "~/composables/services/use-auth";
 
 export const useAuthStore = defineStore("auth", {
   state: () => ({

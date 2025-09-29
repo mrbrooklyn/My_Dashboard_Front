@@ -4,11 +4,15 @@ import type { RegisterForm } from '~/types/auth'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 import { useAuthService } from '~/composables/services/use-auth'
-import { toast } from "vue3-toastify";
-import { toastConfig } from "~/config";
+import { toast } from "vue3-toastify"
+import { toastConfig } from "~/config"
+import { useGlobalStore } from '~/store/global'
 
 const authStore = useAuthStore()
 const authService = useAuthService();
+const globalStore = useGlobalStore()
+
+const isLoading = computed(() => globalStore.isLoading)
 
 const handleHideAuthContainer = () => { 
   authStore.clearSelectedAuthContainer()
@@ -21,13 +25,13 @@ const handleShowRegisterContainer = () => {
 const form = reactive<RegisterForm>({
   email: '',
   password: '',
-  confirmPassword: '',
+  confirm_password: '',
 })
 
 const errors = reactive<Partial<Record<keyof RegisterForm, string>>>({
   email: '',
   password: '',
-  confirmPassword: '',
+  confirm_password: '',
 })
 
 const handleFormChange = (name: string, value: string, e: Event) => {
@@ -38,7 +42,7 @@ const validateForm = () => {
   let valid = true
   errors.email = ''
   errors.password = ''
-  errors.confirmPassword = ''
+  errors.confirm_password = ''
 
   if (!form.email) {
     errors.email = 'Email is required'
@@ -50,13 +54,13 @@ const validateForm = () => {
     valid = false
   }
   
-  if (!form.confirmPassword) {
-    errors.confirmPassword = 'Confirm password is required'
+  if (!form.confirm_password) {
+    errors.confirm_password = 'Confirm password is required'
     valid = false
   }
   
-  if (form.password != form.confirmPassword) {
-    errors.confirmPassword = 'Password not matched'
+  if (form.password != form.confirm_password) {
+    errors.confirm_password = 'Password not matched'
     valid = false
   }
 
@@ -77,7 +81,7 @@ const handleSubmitRegister = async () => {
           errors.password = response.data;
           break;
         default:
-          break;
+          errors.confirm_password = response.data;
       }
     }
   } else {
@@ -126,16 +130,35 @@ const handleSubmitRegister = async () => {
       />
   
       <InputText
-        name="confirmPassword"
+        name="confirm_password"
         type="password"
         placeHolder="Confirm Password"
         iconName="material-symbols:key"
-        :value="form.confirmPassword"
+        :value="form.confirm_password"
         :onChange="handleFormChange"
-        :errorText="errors.confirmPassword"
+        :errorText="errors.confirm_password"
       />
       <div class="flex justify-center items-center mb-6">
-        <button type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">Register</button>
+        <button :disabled="isLoading" type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">
+          <template v-if="isLoading">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              class="inline-block align-middle animate-spin"
+            >
+              <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+              <path d="M12 2a10 10 0 0 1 10 10" />
+            </svg>
+          </template>
+          <template v-else>
+            Register
+          </template>
+        </button>
       </div>
       <div class="text-center">
         <div class="text-black">
