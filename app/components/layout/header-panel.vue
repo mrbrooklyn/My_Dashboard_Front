@@ -5,8 +5,10 @@ import { BannerType } from '~/enums';
 import { useRoute, useRouter } from 'vue-router'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
+import { useGlobalStore } from '~/store/global'
 
 const authStore = useAuthStore()
+const globalStore = useGlobalStore()
 
 export interface Props {
   onHamburgerClick: () => void
@@ -18,6 +20,7 @@ const router = useRouter()
 const route = useRoute()
 
 const isAuthenticated = computed(() => authStore.isAuthenticated)
+const isLoading = computed(() => globalStore.isLoading)
 
 const handleLoginClick = () => {
   authStore.setSelectedAuthContainer(AuthContainerType.Login)
@@ -46,30 +49,38 @@ const handleClick = async () => {
       <img class="w-30 h-10 object-contain" alt="my-dashboard" :src="Logo"/>
     </div>
     <div class="flex gap-x-3 items-center">
-      <div v-if="!isAuthenticated" class="hidden sm:block">
-        <ButtonMenu
-          iconName="stash:signin"
-          className="h-8"
-          :onClick="handleLoginClick"
-        >
-          Login
-        </ButtonMenu>
-      </div>
-      <div v-if="!isAuthenticated" class="hidden sm:block">
-        <ButtonMenu
-          iconName="material-symbols:person-add-outline"
-          className="h-8"
-          :onClick="handleRegisterClick"
-        >
-          Register
-        </ButtonMenu>
-      </div>
-      <div v-if="isAuthenticated">
-          <p>{{ authStore.userProfile?.first_name }} {{ authStore.userProfile?.last_name }} </p>
-      </div>
-      <div v-if="isAuthenticated" class="flex justify-center hover:cursor-pointer" @click="onHamburgerClick">
-        <Icon name="solar:hamburger-menu-linear" class="text-black hover:text-gray-600" size="30"/>
-      </div>
+      <template v-if="isLoading">
+        <Skeleton class="h-5 w-[100px]" />
+        <Skeleton class="h-5 w-[100px]" />
+        <Skeleton class="h-5 w-[30px]" />
+      </template>
+      <template v-else>
+        <div v-if="!isAuthenticated" class="hidden sm:block">
+          <ButtonMenu
+            iconName="stash:signin"
+            className="h-8"
+            :onClick="handleLoginClick"
+          >
+            Login
+          </ButtonMenu>
+        </div>
+        <div v-if="!isAuthenticated" class="hidden sm:block">
+          <ButtonMenu
+            iconName="material-symbols:person-add-outline"
+            className="h-8"
+            :onClick="handleRegisterClick"
+          >
+            Register
+          </ButtonMenu>
+        </div>
+
+        <div v-if="isAuthenticated" class="text-right text-xs sm:text-sm lg:text-lg">
+            <p>{{ authStore.userProfile?.first_name }} {{ authStore.userProfile?.last_name }} </p>
+        </div>
+        <div v-if="isAuthenticated" class="flex justify-center hover:cursor-pointer" @click="onHamburgerClick">
+          <Icon name="solar:hamburger-menu-linear" class="text-black hover:text-gray-600" size="30"/>
+        </div>
+      </template>
     </div>
   </div>
 </template>

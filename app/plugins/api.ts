@@ -1,15 +1,16 @@
-// plugins/api.ts
 import { defineNuxtPlugin } from "#app";
 import { useAuthService } from "~/composables/services/use-auth";
 import { useAuthStore } from "~/store/auth";
 import { toast } from "vue3-toastify";
 import { toastConfig } from "~/config";
+import { useGlobalStore } from "~/store/global";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig();
   const apiBaseUrl: string = config.public.apiBaseUrl;
   const authService = useAuthService();
   const authStore = useAuthStore();
+  const globalStore = useGlobalStore();
   let token: string | null = null;
 
   if (process.client) {
@@ -28,51 +29,58 @@ export default defineNuxtPlugin((nuxtApp) => {
 
     const url = `${apiBaseUrl}/${endpoint.replace(/^\/+/, "")}`;
 
-    const response = await fetch(url, {
-      ...options,
-      headers,
-      body:
-        options.body && typeof options.body !== "string"
-          ? JSON.stringify(options.body)
-          : options.body,
-    });
+    globalStore.setLoading(true);
 
-    let data: any = null;
     try {
-      data = await response.json();
-    } catch {
-      data = null;
-    }
-    let errorMessage = data?.message || `HTTP error! Status: ${response.status}`;
+      const response = await fetch(url, {
+        ...options,
+        headers,
+        body:
+          options.body && typeof options.body !== "string"
+            ? JSON.stringify(options.body)
+            : options.body,
+      });
 
-    if (!response.ok) {
-      if (response.status === 401 && token) {
-        const res = await fetch(`${apiBaseUrl}/auth/refresh-token`, {
-          method: "POST",
-          headers,
-          body: JSON.stringify({ token: token }),
-        });
-        const data = await res.json();
-
-        if (!data.is_success) {
-          authStore.logout();
-          toast.error("Session expired.", toastConfig);
-        } else {
-          let newToken = data.data.access_token;
-          localStorage.setItem("access_token", newToken);
-          window.location.reload()
-        }
-      } else if (response.status === 401) {
-        toast.error("Unauthorized. Please log in again.", toastConfig);
-      } else if (response.status === 500) {
-        toast.error("Server error. Please try later.", toastConfig);
-      } else {
-        toast.error(errorMessage || `Error ${response.status}`, toastConfig);
+      let data: any = null;
+      try {
+        data = await response.json();
+      } catch {
+        data = null;
       }
-      return { is_success: false, message: errorMessage, data: null };
-    }
+      let errorMessage = data?.message || `HTTP error! Status: ${response.status}`;
 
-    return data;
+      if (!response.ok) {
+        if (response.status === 401 && token) {
+          const res = await fetch(`${apiBaseUrl}/auth/refresh-token`, {
+            method: "POST",
+            headers,
+            body: JSON.stringify({ token: token }),
+          });
+          const data = await res.json();
+
+          if (!data.is_success) {
+            authStore.logout();
+            toast.error("Session expired.", toastConfig);
+          } else {
+            let newToken = data.data.access_token;
+            localStorage.setItem("access_token", newToken);
+            window.location.reload()
+          }
+        } else if (response.status === 401) {
+          toast.error("Unauthorized. Please log in again.", toastConfig);
+        } else if (response.status === 500) {
+          toast.error("Server error. Please try later.", toastConfig);
+        } else {
+          toast.error(errorMessage || `Error ${response.status}`, toastConfig);
+        }
+        return { is_success: false, message: errorMessage, data: null };
+      }
+
+      return data;
+    }
+    finally {
+      globalStore.setLoading(false);
+    }
   };
 
   nuxtApp.provide("api", apiFetch);

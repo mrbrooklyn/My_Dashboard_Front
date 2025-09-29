@@ -1,13 +1,17 @@
 <script lang="ts" setup>
-import { useAuthStore } from "~/store/auth";
+import { useAuthStore } from "~/store/auth"
 import { useAuthService } from '~/composables/services/use-auth'
-import { toast } from "vue3-toastify";
-import { toastConfig } from "~/config";
+import { useGlobalStore } from '~/store/global'
+import { toast } from "vue3-toastify"
+import { toastConfig } from "~/config"
 import { ref, reactive, watch } from 'vue'
 import type { UpdateProfileForm, ChangePasswordForm } from '~/types/auth'
 
 const authStore = useAuthStore();
 const authService = useAuthService();
+const globalStore = useGlobalStore()
+
+const isLoading = computed(() => globalStore.isLoading)
 
 export interface Props {
   show: boolean
@@ -261,7 +265,26 @@ watch(
             :errorText="profileErrors.phone"
           />
         </div>
-        <button type="submit" class="bg-[var(--color-dark-gray)] text-white w-full rounded-lg hover:bg-[var(--color-light-gray)] hover:text-black">Save Change</button>
+        <button :disabled="isLoading" type="submit" class="bg-[var(--color-dark-gray)] text-white w-full rounded-lg hover:bg-[var(--color-light-gray)] hover:text-black">
+          <template v-if="isLoading">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              class="inline-block align-middle animate-spin"
+            >
+              <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+              <path d="M12 2a10 10 0 0 1 10 10" />
+            </svg>
+          </template>
+          <template v-else>
+            Save Change
+          </template>
+        </button>
       </form>
 
       <hr class="border-0 h-px bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent my-8">
@@ -294,7 +317,26 @@ watch(
           :onChange="handlePasswordFormChange"
           :errorText="passwordErrors.confirm_new_password"
         />
-        <button type="submit" class="bg-[var(--color-dark-gray)] text-white w-full rounded-lg hover:bg-[var(--color-light-gray)] hover:text-black">Change Password</button>
+        <button :disabled="isLoading" type="submit" class="bg-[var(--color-dark-gray)] text-white w-full rounded-lg hover:bg-[var(--color-light-gray)] hover:text-black">
+          <template v-if="isLoading">
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="20"
+              height="20"
+              fill="none"
+              stroke="white"
+              stroke-width="2"
+              class="inline-block align-middle animate-spin"
+            >
+              <circle cx="12" cy="12" r="10" stroke-opacity="0.25" />
+              <path d="M12 2a10 10 0 0 1 10 10" />
+            </svg>
+          </template>
+          <template v-else>
+            Change Password
+          </template>
+        </button>
       </form>
     </div>
   </div>

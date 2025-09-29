@@ -32,8 +32,8 @@ const handleLogoutClick = () => {
 <template>
   <div
     @mouseleave="handleMouseLeave"
-    class="fixed z-30 w-screen max-w-[400px] h-full bg-gradient-to-b from-[var(--color-light-gray)] to-[var(--color-lavender-gray)] py-6 pr-4 pl-8 duration-300"
-    :class="show ? 'top-0 right-0 opacity-100' : 'top-[-400px] right-[-400px] opacity-0'"
+    class="fixed z-30 w-screen max-w-[900px] h-full bg-gradient-to-b from-[var(--color-light-gray)] to-[var(--color-lavender-gray)] py-6 pr-4 pl-8 duration-300"
+    :class="show ? 'top-0 right-0 opacity-100' : 'top-[-500px] right-[-400px] opacity-0'"
     :style="{ clipPath: 'circle(50% at 100% 0%)' }"
     id="right-panel"
   >
