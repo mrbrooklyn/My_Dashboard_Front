@@ -6,8 +6,11 @@ import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
+import { useI18n } from 'vue-i18n'
 
 const authStore = useAuthStore()
+
+const { t } = useI18n()
 
 export interface Props {
     title: string
@@ -52,9 +55,9 @@ const onClickRegister = () => {
                     v-if="!isAuthenticated"
                     class="flex justify-center items-center gap-x-4"
                 >
-                    <ButtonBlock :onClick="onClickLogin">LOGIN</ButtonBlock>
-                    <span class="text-[var(--color-medium-gray)]">or</span>
-                    <ButtonBlock :onClick="onClickRegister">REGISTER</ButtonBlock>
+                    <ButtonBlock :onClick="onClickLogin">{{ t('login').toUpperCase() }}</ButtonBlock>
+                    <span class="text-[var(--color-medium-gray)]">|</span>
+                    <ButtonBlock :onClick="onClickRegister">{{ t('register').toUpperCase() }}</ButtonBlock>
                 </div>
             </div>
         </div>

@@ -7,6 +7,9 @@ import { useAuthService } from '~/composables/services/use-auth'
 import { toast } from "vue3-toastify"
 import { toastConfig } from "~/config"
 import { useGlobalStore } from '~/store/global'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const authStore = useAuthStore()
 const authService = useAuthService();
@@ -45,22 +48,22 @@ const validateForm = () => {
   errors.confirm_password = ''
 
   if (!form.email) {
-    errors.email = 'Email is required'
+    errors.email = t('email') + ' ' + t('is_required')
     valid = false
   }
 
   if (!form.password) {
-    errors.password = 'Password is required'
+    errors.password = t('password') + ' ' + t('is_required')
     valid = false
   }
   
   if (!form.confirm_password) {
-    errors.confirm_password = 'Confirm password is required'
+    errors.confirm_password = t('confirm_password') + ' ' + t('is_required')
     valid = false
   }
   
   if (form.password != form.confirm_password) {
-    errors.confirm_password = 'Password not matched'
+    errors.confirm_password = t('password_not_matched')
     valid = false
   }
 
@@ -85,7 +88,7 @@ const handleSubmitRegister = async () => {
       }
     }
   } else {
-    toast.success("Register success!", toastConfig);
+    toast.success(`${t('register')} ${t('success')}!`, toastConfig);
     handleHideAuthContainer()
   }
 }
@@ -106,13 +109,13 @@ const handleSubmitRegister = async () => {
       </div>
     </div>
     <div class="text-center mb-6">
-      <div class="text-2xl text-black">Register Form</div>
+      <div class="text-2xl text-black">{{ t('register_form') }}</div>
     </div>
     <form @submit.prevent="handleSubmitRegister">
       <InputText
         name="email"
         type="text"
-        placeHolder="Email"
+        :placeHolder="t('email')"
         iconName="material-symbols:person-2-rounded"
         :value="form.email"
         :onChange="handleFormChange"
@@ -122,7 +125,7 @@ const handleSubmitRegister = async () => {
       <InputText
         name="password"
         type="password"
-        placeHolder="Password"
+        :placeHolder="t('password')"
         iconName="material-symbols:key"
         :value="form.password"
         :onChange="handleFormChange"
@@ -132,7 +135,7 @@ const handleSubmitRegister = async () => {
       <InputText
         name="confirm_password"
         type="password"
-        placeHolder="Confirm Password"
+        :placeHolder="t('confirm_password')"
         iconName="material-symbols:key"
         :value="form.confirm_password"
         :onChange="handleFormChange"
@@ -156,18 +159,18 @@ const handleSubmitRegister = async () => {
             </svg>
           </template>
           <template v-else>
-            Register
+            {{ t('register') }}
           </template>
         </button>
       </div>
       <div class="text-center">
         <div class="text-black">
-          Already a member?
+          {{ t('register_form_already_member') }}
           <span
             class="text-blue-500 underline hover:cursor-pointer"
             @click="handleShowRegisterContainer"
           >
-            Sign in now
+            {{ t('register_form_signin_now') }}
           </span>
         </div>
       </div>

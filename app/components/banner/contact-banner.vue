@@ -13,6 +13,9 @@ import { BannerType, HomeContactState } from '~/enums'
 import { useBannerObserver } from '~/composables/utility/observer'
 import { bannerAnimation } from '~/config'
 import type { IContactType } from '~/types/home'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 export interface Props {
     contactList: IContactType[]
@@ -31,10 +34,10 @@ const { activeBanner } = useBannerObserver([
 const copyToClipboard = (text: string) => {
      navigator.clipboard.writeText(text)
     .then(() => {
-        toast.success(`Copied: ${text}`, toastConfig)
+        toast.success(`${t('copied')}: ${text}`, toastConfig)
     })
     .catch(() => {
-        toast.error('Failed to copy!', toastConfig)
+        toast.error(`${t('copy')} ${t('failed')}!`, toastConfig)
     })
 }
 </script>

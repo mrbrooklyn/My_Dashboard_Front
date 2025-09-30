@@ -6,6 +6,7 @@ import { useRoute, useRouter } from 'vue-router'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 import { useGlobalStore } from '~/store/global'
+import { useI18n } from 'vue-i18n'
 
 const authStore = useAuthStore()
 const globalStore = useGlobalStore()
@@ -15,6 +16,16 @@ export interface Props {
 }
 
 const { onHamburgerClick } = defineProps<Props>()
+
+const { t, locale } = useI18n()
+
+const switchToThai = () => {
+  locale.value = 'th'
+}
+
+const switchToEnglish = () => {
+  locale.value = 'en'
+}
 
 const router = useRouter()
 const route = useRoute()
@@ -55,13 +66,29 @@ const handleClick = async () => {
         <Skeleton class="h-5 w-[30px]" />
       </template>
       <template v-else>
+        <div v-if="!isAuthenticated" class="flex gap-2 mr-3">
+          <button
+            class="text-sm rounded border"
+            :class="locale === 'th' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
+            @click="switchToThai"
+          >
+            TH
+          </button>
+          <button
+            class="text-sm rounded border"
+            :class="locale === 'en' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
+            @click="switchToEnglish"
+          >
+            EN
+          </button>
+        </div>
         <div v-if="!isAuthenticated" class="hidden sm:block">
           <ButtonMenu
             iconName="stash:signin"
             className="h-8"
             :onClick="handleLoginClick"
           >
-            Login
+            {{ t('login') }}
           </ButtonMenu>
         </div>
         <div v-if="!isAuthenticated" class="hidden sm:block">
@@ -70,7 +97,7 @@ const handleClick = async () => {
             className="h-8"
             :onClick="handleRegisterClick"
           >
-            Register
+            {{ t('register') }}
           </ButtonMenu>
         </div>
 

@@ -12,9 +12,9 @@ export enum BannerType {
 }
 
 export enum BannerName {
-  FirstBanner = "Home",
-  SecondBanner = "Playground",
-  ThirdBanner = "Contact",
+  FirstBanner = "first_banner_name", //i18n key
+  SecondBanner = "second_banner_name", //i18n key
+  ThirdBanner = "third_banner_name", //i18n key
 }
 
 export enum BannerIndicatorState {

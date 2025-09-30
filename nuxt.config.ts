@@ -15,7 +15,7 @@ export default defineNuxtConfig({
     },
   },
 
-  plugins: ["~/plugins/api.ts"],
+  plugins: ["~/plugins/api.ts", "~/plugins/i18n.ts"],
 
   modules: ["@nuxt/icon", "@pinia/nuxt"],
 });

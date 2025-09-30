@@ -2,6 +2,7 @@
 import { useAuthStore } from "~/store/auth";
 import { toast } from "vue3-toastify";
 import { toastConfig } from "~/config";
+import { useI18n } from 'vue-i18n'
 
 const authStore = useAuthStore();
 
@@ -12,6 +13,16 @@ export interface Props {
 }
 
 const prop= defineProps<Props>()
+
+const { t, locale } = useI18n()
+
+const switchToThai = () => {
+  locale.value = 'th'
+}
+
+const switchToEnglish = () => {
+  locale.value = 'en'
+}
 
 const handleMouseLeave = () => {
   prop.onClosePanel()
@@ -46,12 +57,29 @@ const handleLogoutClick = () => {
         />
       </div>
 
+      <div class="flex gap-2 mr-3">
+        <button
+          class="text-sm rounded border"
+          :class="locale === 'th' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
+          @click="switchToThai"
+        >
+          TH
+        </button>
+        <button
+          class="text-sm rounded border"
+          :class="locale === 'en' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
+          @click="switchToEnglish"
+        >
+          EN
+        </button>
+      </div>
+
       <ButtonMenu
         iconName="material-symbols:person-edit-outline"
         className="h-12"
         :onClick="handleEditProfileClick"
       >
-        Edit Profile
+        {{ t('edit_profile') }}
       </ButtonMenu>
 
       <ButtonMenu
@@ -59,7 +87,7 @@ const handleLogoutClick = () => {
         className="h-12"
         :onClick="handleLogoutClick"
       >
-        Logout
+        {{ t('logout') }}
       </ButtonMenu>
     </div>
   </div>

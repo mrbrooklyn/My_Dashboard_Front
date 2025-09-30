@@ -1,0 +1,42 @@
+{
+  "login": "Login",
+  "register": "Register",
+  "logout": "Logout",
+  "edit_profile": "Edit Profile",
+
+  "first_banner_name": "Home",
+  "second_banner_name": "Playground",
+  "third_banner_name": "Contact",
+
+  "home_text_header": "LOREM IPSUM",
+  "home_text_detail": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim.",
+
+  "login_form": "Login Form",
+  "login_form_not_memeber": "Not a member?",
+  "login_form_signup_now": "Sign up now",
+
+  "register_form": "Register Form",
+  "register_form_already_member": "Already a member?",
+  "register_form_signin_now": "Sign in now",
+
+  "email": "Email",
+  "password": "Password",
+  "confirm_password": "Confirm Password",
+  "old_password": "Old Password",
+  "new_password": "New Password",
+  "confirm_new_password": "Confirm New Password",
+  "first_name": "First Name",
+  "last_name": "Last Name",
+  "phone": "Phone",
+
+  "button_save_change": "Save Changes",
+  "button_change_password": "Change Password",
+
+  "success": "Success",
+  "failed": "Failed",
+  "save": "Save",
+  "copy": "Copy",
+  "copied": "Copied",
+  "is_required": "is required",
+  "password_not_matched": "Password not matched"
+}

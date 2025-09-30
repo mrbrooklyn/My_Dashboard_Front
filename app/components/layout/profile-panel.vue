@@ -6,6 +6,9 @@ import { toast } from "vue3-toastify"
 import { toastConfig } from "~/config"
 import { ref, reactive, watch } from 'vue'
 import type { UpdateProfileForm, ChangePasswordForm } from '~/types/auth'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const authStore = useAuthStore();
 const authService = useAuthService();
@@ -94,7 +97,7 @@ const handleSubmitUpdateProfile = async () => {
       }
     }
   } else {
-    toast.success("Save success!", toastConfig);
+    toast.success(`${t('save')} ${t('success').toLowerCase()}!`, toastConfig);
   }
 }
 
@@ -131,17 +134,17 @@ const validatePasswordForm = () => {
   resetPasswordErrors();
 
   if (!passwordForm.old_password) {
-    passwordErrors.old_password = 'Old Password is required'
+    passwordErrors.old_password = t('old_password') + ' ' + t('is_required')
     valid = false
   }
 
   if (!passwordForm.new_password) {
-    passwordErrors.new_password = 'New Password is required'
+    passwordErrors.new_password = t('new_password') + ' ' + t('is_required')
     valid = false
   }
   
   if (!passwordForm.confirm_new_password) {
-    passwordErrors.confirm_new_password = 'Confirm New Password is required'
+    passwordErrors.confirm_new_password = t('confirm_new_password') + ' ' + t('is_required')
     valid = false
   }
 
@@ -171,7 +174,7 @@ const handleSubmitChangePassword = async () => {
       }
     }
   } else {
-    toast.success("Save success!", toastConfig);
+    toast.success(`${t('save')} ${t('success').toLowerCase()}!`, toastConfig);
     resetPasswordForm();
   }
 }
@@ -210,7 +213,7 @@ watch(
       </div>
 
       <div class="flex-1 text-center font-semibold text-gray-700">
-        Edit Profile
+        {{ t('edit_profile') }}
       </div>
       
       <div class="flex justify-center items-center size-8 hover:cursor-pointer" @click="onClosePanel">
@@ -230,7 +233,7 @@ watch(
           <InputText
             name="email"
             type="text"
-            placeHolder="Email"
+            :placeHolder="t('email')"
             iconName="material-symbols:mail-outline-rounded"
             :value="profileForm.email ?? ''"
             :onChange="() => {}"
@@ -240,7 +243,7 @@ watch(
           <InputText
             name="first_name"
             type="text"
-            placeHolder="First Name"
+          :placeHolder="t('first_name')"
             iconName="material-symbols:person-2-rounded"
             :value="profileForm.first_name ?? ''"
             :onChange="handleProfileFormChange"
@@ -249,7 +252,7 @@ watch(
           <InputText
             name="last_name"
             type="text"
-            placeHolder="Last Name"
+          :placeHolder="t('last_name')"
             iconName="material-symbols:person-2-rounded"
             :value="profileForm.last_name ?? ''"
             :onChange="handleProfileFormChange"
@@ -258,7 +261,7 @@ watch(
           <InputText
             name="phone"
             type="tel"
-            placeHolder="Phone"
+          :placeHolder="t('phone')"
             iconName="material-symbols:call-outline-rounded"
             :value="profileForm.phone ?? ''"
             :onChange="handleProfileFormChange"
@@ -282,7 +285,7 @@ watch(
             </svg>
           </template>
           <template v-else>
-            Save Change
+            {{ t('button_save_change') }}
           </template>
         </button>
       </form>
@@ -293,7 +296,7 @@ watch(
         <InputText
           name="old_password"
           type="password"
-          placeHolder="Old Password"
+          :placeHolder="t('old_password')"
           iconName="material-symbols:key"
           :value="passwordForm.old_password"
           :onChange="handlePasswordFormChange"
@@ -302,7 +305,7 @@ watch(
         <InputText
           name="new_password"
           type="password"
-          placeHolder="Password"
+          :placeHolder="t('new_password')"
           iconName="material-symbols:key-outline"
           :value="passwordForm.new_password"
           :onChange="handlePasswordFormChange"
@@ -311,7 +314,7 @@ watch(
         <InputText
           name="confirm_new_password"
           type="password"
-          placeHolder="Confirm Password"
+          :placeHolder="t('confirm_new_password')"
           iconName="material-symbols:key-outline"
           :value="passwordForm.confirm_new_password"
           :onChange="handlePasswordFormChange"
@@ -334,7 +337,7 @@ watch(
             </svg>
           </template>
           <template v-else>
-            Change Password
+            {{ t('button_change_password') }}
           </template>
         </button>
       </form>

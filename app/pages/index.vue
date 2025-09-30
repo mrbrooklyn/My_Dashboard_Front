@@ -3,17 +3,20 @@ import { BannerType, BannerName, HomeContactState } from '~/enums';
 import type { IBannerTabMenu } from '~/types/banner';
 import { useBannerObserver } from '~/composables/utility/observer';
 import type { IContactType } from '~/types/home';
+import { useI18n } from 'vue-i18n'
 
 import Phone from '~/assets/general/icons/phone.png'
 import Mail from '~/assets/general/icons/mail.png'
 import Linkedin from '~/assets/general/icons/linkedin.png'
 import Github from '~/assets/general/icons/github.png'
 
-const BannerTabMenus: IBannerTabMenu[] = [
-  { value: BannerType.FirstBanner, text: BannerName.FirstBanner },
-  { value: BannerType.SecondBanner, text: BannerName.SecondBanner },
-  { value: BannerType.ThirdBanner, text: BannerName.ThirdBanner },
-];
+const { t } = useI18n()
+
+const BannerTabMenus = computed<IBannerTabMenu[]>(() => [
+  { value: BannerType.FirstBanner, text: t(BannerName.FirstBanner) },
+  { value: BannerType.SecondBanner, text: t(BannerName.SecondBanner) },
+  { value: BannerType.ThirdBanner, text: t(BannerName.ThirdBanner) },
+]);
 
 const { activeBanner } = useBannerObserver([
   BannerType.FirstBanner,
@@ -56,8 +59,8 @@ const ContactList: IContactType[] = [
     <div class="relative">
       <BannerHomeBanner 
         :id="BannerType.FirstBanner"
-        title="LOREM IPSUM"
-        content="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Etiam eu turpis molestie, dictum est a, mattis tellus. Sed dignissim."
+        :title="t('home_text_header')"
+        :content="t('home_text_detail')"
       />
       <!-- <div class="absolute bottom-[-90px] left-0 w-full h-[180px] banner-transition-1"></div> -->
     </div>

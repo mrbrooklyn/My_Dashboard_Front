@@ -1,0 +1,42 @@
+{
+  "login": "เข้าสู่ระบบ",
+  "register": "สมัครสมาชิก",
+  "logout": "ออกจากระบบ",
+  "edit_profile": "แก้ไขโปรไฟล์",
+
+  "first_banner_name": "หน้าแรก",
+  "second_banner_name": "งานทั่วไป",
+  "third_banner_name": "ติดต่อ",
+
+  "home_text_header": "ทดสอบ ทดสอบ",
+  "home_text_detail": "ทดสอบ ทดสอบ ทดสอบ ทดสอบ ทดสอบ ทดสอบ ทดสอบ ทดสอบ",
+
+  "login_form": "ฟอร์มเข้าสู่ระบบ",
+  "login_form_not_memeber": "ยังไม่มีบัญชี?",
+  "login_form_signup_now": "สมัครทันที",
+
+  "register_form": "ฟอร์มสมัครสมาชิก",
+  "register_form_already_member": "มีบัญชีอยู่แล้ว?",
+  "register_form_signin_now": "เข้าสู่ระบบทันที",
+
+  "email": "อีเมล",
+  "password": "รหัสผ่าน",
+  "confirm_password": "ยืนยันรหัสผ่าน",
+  "old_password": "รหัสผ่านเก่า",
+  "new_password": "รหัสผ่านใหม่",
+  "confirm_new_password": "ยืนยันรหัสผ่านใหม่",
+  "first_name": "ชื่อจริง",
+  "last_name": "นามสกุล",
+  "phone": "เบอร์โทรศัพท์",
+
+  "button_save_change": "บันทึกการเปลี่ยนแปลง",
+  "button_change_password": "เปลี่ยนรหัสผ่าน",
+
+  "success": "สำเร็จ",
+  "failed": "ล้มเหลว",
+  "save": "บันทึก",
+  "copy": "คัดลอก",
+  "copied": "คัดลอกแล้ว",
+  "is_required": "จำเป็นต้องกรอก",
+  "password_not_matched": "รหัสผ่านไม่ตรงกัน"
+}

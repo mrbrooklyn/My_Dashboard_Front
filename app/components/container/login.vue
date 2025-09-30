@@ -7,6 +7,9 @@ import { useAuthService } from '~/composables/services/use-auth'
 import { toast } from "vue3-toastify"
 import { toastConfig } from "~/config"
 import { useGlobalStore } from '~/store/global'
+import { useI18n } from 'vue-i18n'
+
+const { t } = useI18n()
 
 const authStore = useAuthStore()
 const authService = useAuthService();
@@ -42,12 +45,12 @@ const validateForm = () => {
   errors.password = ''
 
   if (!form.email) {
-    errors.email = 'Email is required'
+    errors.email = t('email') + ' ' + t('is_required')
     valid = false
   }
 
   if (!form.password) {
-    errors.password = 'Password is required'
+    errors.password = t('password') + ' ' + t('is_required')
     valid = false
   }
 
@@ -72,7 +75,7 @@ const handleSubmitLogin = async () => {
       }
     }
   } else {
-    toast.success("Welcome back!", toastConfig);
+    //toast.success("Welcome back!", toastConfig);
     handleHideAuthContainer()
   }
 }
@@ -93,14 +96,14 @@ const handleSubmitLogin = async () => {
     </div>
 
     <div class="text-center mb-6">
-      <div class="text-2xl text-black">Login Form</div>
+      <div class="text-2xl text-black">{{ t('login_form') }}</div>
     </div>
 
     <form @submit.prevent="handleSubmitLogin">
       <InputText
         name="email"
         type="text"
-        placeHolder="Email"
+        :placeHolder="t('email')"
         iconName="material-symbols:person-2-rounded"
         :value="form.email"
         :onChange="handleFormChange"
@@ -110,7 +113,7 @@ const handleSubmitLogin = async () => {
       <InputText
         name="password"
         type="password"
-        placeHolder="Password"
+        :placeHolder="t('password')"
         iconName="material-symbols:key"
         :value="form.password"
         :onChange="handleFormChange"
@@ -134,18 +137,18 @@ const handleSubmitLogin = async () => {
             </svg>
           </template>
           <template v-else>
-            Login
+            {{ t('login') }}
           </template>
         </button>
       </div>
       <div class="text-center">
         <div class="text-black">
-          Not a member?
+          {{ t('login_form_not_memeber') }}
           <span
             class="text-blue-500 underline hover:cursor-pointer"
             @click="handleShowRegisterContainer"
           >
-            Sign up now
+            {{ t('login_form_signup_now') }}
           </span>
         </div>
       </div>
