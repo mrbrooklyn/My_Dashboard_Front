@@ -4,7 +4,7 @@ import th from "~/lang/th.json";
 
 export default defineNuxtPlugin((nuxtApp) => {
   const defaultLanguage = process.client
-    ? (localStorage.getItem("lang") as "en" | "th") || "en"
+    ? (localStorage.getItem("lang") as "en" | "th")
     : "en";
 
   const i18n = createI18n({
@@ -16,12 +16,12 @@ export default defineNuxtPlugin((nuxtApp) => {
 
   nuxtApp.vueApp.use(i18n);
 
-  const setLanguag = (lang: "en" | "th") => {
+  const setLanguage = (lang: "en" | "th") => {
     i18n.global.locale.value = lang;
     if (process.client) {
       localStorage.setItem("lang", lang);
     }
   };
 
-  nuxtApp.provide("i18n", setLanguag);
+  nuxtApp.provide("i18n", setLanguage);
 });

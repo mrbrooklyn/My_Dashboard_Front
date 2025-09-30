@@ -16,9 +16,25 @@
   font-display: swap;
 }
 
+@font-face {
+  font-family: 'Prompt';
+  src: url('../fonts/prompt//Prompt-Regular.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Prompt';
+  src: url('../fonts/prompt/Prompt-Italic.ttf') format('truetype');
+  font-weight: 100 900;
+  font-style: italic;
+  font-display: swap;
+}
+
 html {
   /* font-family: system-ui, sans-serif; */
-  font-family: 'Raleway';
+  font-family: 'Raleway', 'Prompt';
 }
 
 .font-raleway {

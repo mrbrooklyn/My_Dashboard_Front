@@ -16,15 +16,15 @@ export interface Props {
 
 const prop= defineProps<Props>()
 
-const $setLanguag = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
+const $setLanguage = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
 const { t, locale } = useI18n()
 
 const switchToThai = () => {
-  $setLanguag("th");
+  $setLanguage("th");
 }
 
 const switchToEnglish = () => {
-  $setLanguag("en");
+  $setLanguage("en");
 }
 
 const handleMouseLeave = () => {
@@ -60,7 +60,7 @@ const handleLogoutClick = () => {
         />
       </div>
 
-      <div class="flex gap-2 mr-3">
+      <div class="flex gap-2 mr-3" v-if="prop.show">
         <button
           class="text-sm rounded border"
           :class="locale === 'th' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
@@ -77,21 +77,21 @@ const handleLogoutClick = () => {
         </button>
       </div>
 
-      <ButtonMenu
-        iconName="material-symbols:person-edit-outline"
-        className="h-12"
-        :onClick="handleEditProfileClick"
-      >
-        {{ t('edit_profile') }}
-      </ButtonMenu>
+      <div class="flex flex-col items-end gap-3 mt-5">
+        <ButtonList
+          iconName="material-symbols:person-edit-outline"
+          :onClick="handleEditProfileClick"
+        >
+          {{ t('edit_profile') }}
+        </ButtonList>
 
-      <ButtonMenu
-        iconName="mdi:logout"
-        className="h-12"
-        :onClick="handleLogoutClick"
-      >
-        {{ t('logout') }}
-      </ButtonMenu>
+        <ButtonList
+          iconName="mdi:logout"
+          :onClick="handleLogoutClick"
+        >
+          {{ t('logout') }}
+        </ButtonList>
+      </div>
     </div>
   </div>
 </template>

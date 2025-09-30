@@ -18,4 +18,24 @@ export default defineNuxtConfig({
   plugins: ["~/plugins/api.ts", "~/plugins/i18n.ts"],
 
   modules: ["@nuxt/icon", "@pinia/nuxt"],
+
+  // i18n: {
+  //   strategy: "no_prefix",
+  //   locales: ["en", "th"],
+  //   defaultLocale: "en",
+  //   vueI18n: "~/plugins/i18n.ts",
+  //   detectBrowserLanguage: {
+  //     useCookie: true,
+  //     cookieKey: "lang",
+  //     cookieCrossOrigin: false,
+  //     cookieSecure: false,
+  //     alwaysRedirect: true,
+  //     fallbackLocale: "en",
+  //   },
+  // },
+
+  app: {
+    pageTransition: { name: "page", mode: "out-in" },
+    head: { title: "My Dashboard" },
+  },
 });

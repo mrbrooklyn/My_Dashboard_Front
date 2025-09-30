@@ -19,15 +19,16 @@ export interface Props {
 
 const { onHamburgerClick } = defineProps<Props>()
 
-const $setLanguag = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
+const $setLanguage = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
 const { t, locale } = useI18n()
+const onRender = ref<boolean>(false)
 
 const switchToThai = () => {
-  $setLanguag("th");
+  $setLanguage("th");
 }
 
 const switchToEnglish = () => {
-  $setLanguag("en");
+  $setLanguage("en");
 }
 
 const router = useRouter()
@@ -45,14 +46,17 @@ const handleRegisterClick = () => {
 }
 
 const handleClick = async () => {
-    const isHomePath = route.path === '/'
-    if (isHomePath) {
-        handleScrollTo(BannerType.FirstBanner)
-    } else {
-        router.push(`/#${BannerType.FirstBanner}`)
-    }
+  const isHomePath = route.path === '/'
+  if (isHomePath) {
+    handleScrollTo(BannerType.FirstBanner)
+  } else {
+    router.push(`/#${BannerType.FirstBanner}`)
+  }
 }
 
+onMounted(() => {
+  onRender.value = true
+})
 </script>
 
 <template>
@@ -69,7 +73,7 @@ const handleClick = async () => {
         <Skeleton class="h-5 w-[30px]" />
       </template>
       <template v-else>
-        <div v-if="!isAuthenticated" class="flex gap-2 mr-3">
+        <div v-if="!isAuthenticated && onRender" class="flex gap-2 mr-3">
           <button
             class="text-sm rounded border"
             :class="locale === 'th' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
