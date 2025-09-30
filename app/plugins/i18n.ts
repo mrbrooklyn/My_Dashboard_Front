@@ -1,14 +1,27 @@
 import { createI18n } from "vue-i18n";
-import en from "~/locales/en.json";
-import th from "~/locales/th.json";
+import en from "~/lang/en.json";
+import th from "~/lang/th.json";
 
 export default defineNuxtPlugin((nuxtApp) => {
+  const defaultLanguage = process.client
+    ? (localStorage.getItem("lang") as "en" | "th") || "en"
+    : "en";
+
   const i18n = createI18n({
     legacy: false,
-    locale: "en",
+    locale: defaultLanguage,
     fallbackLocale: "en",
     messages: { en, th },
   });
 
   nuxtApp.vueApp.use(i18n);
+
+  const setLanguag = (lang: "en" | "th") => {
+    i18n.global.locale.value = lang;
+    if (process.client) {
+      localStorage.setItem("lang", lang);
+    }
+  };
+
+  nuxtApp.provide("i18n", setLanguag);
 });

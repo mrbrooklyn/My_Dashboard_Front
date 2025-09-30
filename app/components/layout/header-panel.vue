@@ -7,7 +7,9 @@ import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 import { useGlobalStore } from '~/store/global'
 import { useI18n } from 'vue-i18n'
+import { useNuxtApp } from "#app";
 
+const nuxtApp = useNuxtApp();
 const authStore = useAuthStore()
 const globalStore = useGlobalStore()
 
@@ -17,14 +19,15 @@ export interface Props {
 
 const { onHamburgerClick } = defineProps<Props>()
 
+const $setLanguag = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
 const { t, locale } = useI18n()
 
 const switchToThai = () => {
-  locale.value = 'th'
+  $setLanguag("th");
 }
 
 const switchToEnglish = () => {
-  locale.value = 'en'
+  $setLanguag("en");
 }
 
 const router = useRouter()

@@ -3,7 +3,9 @@ import { useAuthStore } from "~/store/auth";
 import { toast } from "vue3-toastify";
 import { toastConfig } from "~/config";
 import { useI18n } from 'vue-i18n'
+import { useNuxtApp } from "#app";
 
+const nuxtApp = useNuxtApp();
 const authStore = useAuthStore();
 
 export interface Props {
@@ -14,14 +16,15 @@ export interface Props {
 
 const prop= defineProps<Props>()
 
+const $setLanguag = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
 const { t, locale } = useI18n()
 
 const switchToThai = () => {
-  locale.value = 'th'
+  $setLanguag("th");
 }
 
 const switchToEnglish = () => {
-  locale.value = 'en'
+  $setLanguag("en");
 }
 
 const handleMouseLeave = () => {
