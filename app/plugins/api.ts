@@ -18,8 +18,27 @@ export default defineNuxtPlugin((nuxtApp) => {
   }
   
   const apiFetch = async (endpoint: string, options: RequestInit = {}) => {
+    const isMobile = process.client ? /mobile/i.test(navigator.userAgent) : false;
+    const isIOS = process.client ? /iPhone|iPad|iPod/i.test(navigator.userAgent) : false;
+    const isAndroid = process.client ? /Android/i.test(navigator.userAgent) : false;
+
+    let platform = 'web';
+    if (isMobile) {
+      if (isIOS) {
+        platform = 'ios'
+      } else if (isAndroid) {
+        platform = 'android'
+      } else {
+        platform = 'mobilesite'
+      }
+    }
+
+    const lang = localStorage.getItem("lang") || "en";
+
     const headers: HeadersInit = {
       "Content-Type": "application/json",
+      platform,
+      lang,
       ...options.headers,
     } as Record<string, string>;
 

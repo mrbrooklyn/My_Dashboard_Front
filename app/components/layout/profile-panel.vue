@@ -42,7 +42,7 @@ const resetProfileForm = () => {
   profileForm.email = authStore.userProfile?.email;
   profileForm.first_name = authStore.userProfile?.first_name;
   profileForm.last_name = authStore.userProfile?.last_name;
-  profileForm.phone = authStore.userProfile?.phone;
+  profileForm.phone = authStore.userProfile?.phone ?? '';
 }
 
 const resetProfileErrors = () => {
@@ -56,32 +56,32 @@ const handleProfileFormChange = (name: string, value: string) => {
   (profileForm as any)[name] = value
 }
 
-// const validateProfileForm = () => {
-//   let valid = true
-//   profileErrors.first_name = ''
-//   profileErrors.last_name = ''
-//   profileErrors.phone = ''
+const validateProfileForm = () => {
+  let valid = true
+  profileErrors.first_name = ''
+  profileErrors.last_name = ''
+  // profileErrors.phone = ''
 
-//   if (!profileForm.first_name) {
-//     profileErrors.first_name = 'Input here'
-//     valid = false
-//   }
+  if (!profileForm.first_name) {
+    profileErrors.first_name = t('first_name') + ' ' + t('is_required')
+    valid = false
+  }
 
-//   if (!profileForm.last_name) {
-//     profileErrors.last_name = 'Input here'
-//     valid = false
-//   }
+  if (!profileForm.last_name) {
+    profileErrors.last_name = t('last_name') + ' ' + t('is_required')
+    valid = false
+  }
   
-//   if (!profileForm.phone) {
-//     profileErrors.phone = 'Input here'
-//     valid = false
-//   }
+  // if (!profileForm.phone) {
+  //   profileErrors.phone = 'Input here'
+  //   valid = false
+  // }
 
-//   return valid
-// }
+  return valid
+}
 
 const handleSubmitUpdateProfile = async () => {
-  // if (!validateProfileForm()) return
+  if (!validateProfileForm()) return
   const payload = {first_name: profileForm.first_name, last_name: profileForm.last_name, phone: profileForm.phone}
   const response = await authService.updateProfile(payload)
   if (!response.is_success) {
