@@ -81,7 +81,7 @@ const copyToClipboard = (text: string) => {
                     class="w-32 h-auto shadow-md"
                     :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
                     :class="activeBanner === BannerType.ThirdBanner
-                        ? ' opacity-0 sm:opacity-30 lg:opacity-100 translate-x-10 visible'
+                        ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-x-10 visible'
                         : 'opacity-0 translate-x-0 invisible'"
                 />
             </div>
