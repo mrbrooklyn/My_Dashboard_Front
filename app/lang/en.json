@@ -1,4 +1,8 @@
 {
+  "not_found_message": "Oops! The page you are looking for does not exist.",
+  "go_home_button": "Go Back Home",
+  "coming_soon": "Coming Soon...",
+
   "login": "Login",
   "register": "Register",
   "logout": "Logout",

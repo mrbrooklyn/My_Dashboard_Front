@@ -7,16 +7,17 @@ import { bannerAnimation } from '~/config'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 import { useI18n } from 'vue-i18n'
+import { onMounted, onBeforeUnmount, watch } from "vue"
 
 const authStore = useAuthStore()
 
-const { t } = useI18n()
+const { t, locale } = useI18n()
 
 export interface Props {
     title: string
     content: string
 }
-defineProps<Props>()
+const props = defineProps<Props>()
 
 const { activeBanner } = useBannerObserver([
   BannerType.FIRST_BANNER,
@@ -33,6 +34,43 @@ const onClickLogin = () => {
 const onClickRegister = () => {
     authStore.setSelectedAuthContainer(AuthContainerType.REGISTER)
 };
+
+const fullText = ref(props.content);
+const displayText = ref(""); 
+const typingSpeed = 30; 
+
+let typingInterval: ReturnType<typeof setInterval> | null = null;
+
+const startTyping = () => {
+  if (typingInterval) clearInterval(typingInterval);
+    fullText.value = props.content;
+    displayText.value = "";
+    let index = 0;
+
+    typingInterval = setInterval(() => {
+        if (index < fullText.value.length) {
+            displayText.value += fullText.value[index];
+            index++;
+        } else {
+            clearInterval(typingInterval!);
+        }
+    }, typingSpeed);
+};
+
+watch(locale, () => {
+    if (typingInterval) clearInterval(typingInterval);
+    displayText.value = props.content
+})
+
+if (process.client) {
+    onMounted(() => {
+        startTyping()
+    });
+
+    onBeforeUnmount(() => {
+        if (typingInterval) clearInterval(typingInterval);
+    });
+}
 </script>
 
 <template>
@@ -45,9 +83,8 @@ const onClickRegister = () => {
                 <h1 class="text-3xl lg:text-5xl text-center mb-4">
                     {{ title }}
                 </h1>
-
                 <p class="text-md sm:text-xl text-center">
-                    {{ content }}
+                    {{ displayText }}
                 </p>
                 
                 <hr class="border-0 h-px my-5 bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent">

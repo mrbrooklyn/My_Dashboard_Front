@@ -35,15 +35,15 @@ const { activeBanner } = useBannerObserver([
 const playgroundSlides = computed<ICarouselType[]>(() => {
   if (locale.value === "th") {
     return [
-      { image: PlaygroundSlide01TH, text: "GoogleMapAPI", path: "GoogleMapAPI" },
-      { image: PlaygroundSlide02TH, text: "ScpAPI", path: "ScpAPI" },
-      { image: PlaygroundSlide03TH, text: "DynamicFilter", path: "DynamicFilter" },
+      { image: PlaygroundSlide01TH, text: "Google Map API", path: "/google-map-api" },
+      { image: PlaygroundSlide02TH, text: "SCB API", path: "/scb-api" },
+      { image: PlaygroundSlide03TH, text: "Dynamic Filter", path: "/dynamic-filter" },
     ];
   } else {
     return [
-      { image: PlaygroundSlide01EN, text: "GoogleMapAPI", path: "GoogleMapAPI" },
-      { image: PlaygroundSlide02EN, text: "ScpAPI", path: "ScpAPI" },
-      { image: PlaygroundSlide03EN, text: "DynamicFilter", path: "DynamicFilter" },
+      { image: PlaygroundSlide01EN, text: "Google Map API", path: "/google-map-api" },
+      { image: PlaygroundSlide02EN, text: "SCB API", path: "/scb-api" },
+      { image: PlaygroundSlide03EN, text: "Dynamic Filter", path: "/dynamic-filter" },
     ];
   }
 });

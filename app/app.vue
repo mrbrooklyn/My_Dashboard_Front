@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import 'vue3-toastify/dist/index.css'
-import { onMounted } from "vue"
+import { onMounted, ref } from "vue"
 import { toastContainers } from 'vue3-toastify'
 import { useAuthStore } from '~/store/auth'
 import { useAuthService } from '~/composables/services/use-auth'

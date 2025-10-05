@@ -33,7 +33,6 @@ const getPosition = (index: number) => {
 
 const handleClick = (index: number, path?: string) => {
   const pos = getPosition(index);
-
   if (pos === CarouselState.ACTIVE && path) {
     router.push(path);
   } else if (pos === CarouselState.PREV) {
@@ -68,13 +67,15 @@ const stopAutoScroll = () => {
   if (autoScroll) clearInterval(autoScroll)
 }
 
-onMounted(() => {
-  startAutoScroll()
-})
+if (process.client) {
+  onMounted(() => {
+    startAutoScroll()
+  })
 
-onBeforeUnmount(() => {
-  stopAutoScroll()
-})
+  onBeforeUnmount(() => {
+    stopAutoScroll()
+  })
+}
 </script>
 
 <template>
