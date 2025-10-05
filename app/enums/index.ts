@@ -6,29 +6,36 @@ export enum Method {
 }
 
 export enum BannerType {
-  FirstBanner = "home",
-  SecondBanner = "playground",
-  ThirdBanner = "contact",
+  FIRST_BANNER = "home",
+  SECOND_BANNER = "playground",
+  THIRD_BANNER = "contact",
 }
 
 export enum BannerName {
-  FirstBanner = "first_banner_name", //i18n key
-  SecondBanner = "second_banner_name", //i18n key
-  ThirdBanner = "third_banner_name", //i18n key
+  FIRST_BANNER = "first_banner_name", //i18n key
+  SECOND_BANNER = "second_banner_name", //i18n key
+  THIRD_BANNER = "third_banner_name", //i18n key
 }
 
 export enum BannerIndicatorState {
-  Past,
-  Active,
-  Coming,
+  PAST,
+  ACTIVE,
+  COMING,
 }
 
 export enum HomeContactState {
-  Text,
-  Link,
+  TEXT,
+  LINK,
 }
 
 export enum AuthContainerType {
-  Login = "Login",
-  Register = "Register",
+  LOGIN = "Login",
+  REGISTER = "Register",
+}
+
+export enum CarouselState {
+  PREV = "prev",
+  ACTIVE = "active",
+  NEXT = "next",
+  HIDDEN = "hidden",
 }

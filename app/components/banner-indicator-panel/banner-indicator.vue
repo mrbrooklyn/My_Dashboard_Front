@@ -12,13 +12,13 @@ const { indicatorState } = defineProps<Props>()
 const position = computed(() => {
     let c: string
     switch (indicatorState) {
-        case BannerIndicatorState.Past:
+        case BannerIndicatorState.PAST:
             c = 'top-14'
             break;
-        case BannerIndicatorState.Coming:
+        case BannerIndicatorState.COMING:
             c = '-top-14'
             break;
-        case BannerIndicatorState.Active:
+        case BannerIndicatorState.ACTIVE:
         default:
             c = 'top-0'
             break;

@@ -19,19 +19,19 @@ export interface Props {
 defineProps<Props>()
 
 const { activeBanner } = useBannerObserver([
-  BannerType.FirstBanner,
-  BannerType.SecondBanner,
-  BannerType.ThirdBanner
+  BannerType.FIRST_BANNER,
+  BannerType.SECOND_BANNER,
+  BannerType.THIRD_BANNER
 ])
 
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 const onClickLogin = () => {
-    authStore.setSelectedAuthContainer(AuthContainerType.Login)
+    authStore.setSelectedAuthContainer(AuthContainerType.LOGIN)
 };
 
 const onClickRegister = () => {
-    authStore.setSelectedAuthContainer(AuthContainerType.Register)
+    authStore.setSelectedAuthContainer(AuthContainerType.REGISTER)
 };
 </script>
 
@@ -69,7 +69,7 @@ const onClickRegister = () => {
                 alt="Home-Decoration-01"
                 class="w-full h-full"
                 :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                :class="activeBanner === BannerType.FirstBanner
+                :class="activeBanner === BannerType.FIRST_BANNER
                     ? 'opacity-100 translate-x-0 visible'
                     : 'opacity-0 translate-x-10 invisible'"
             />

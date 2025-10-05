@@ -2,6 +2,8 @@
 import { ref } from "vue";
 import type { ICarouselType } from '~/types/carousel'
 import { useRouter } from "vue-router";
+import { CarouselState } from "~/enums";
+import { carouselConfig } from "~/config"
 
 export interface Props {
   slides: ICarouselType[]
@@ -15,67 +17,76 @@ const router = useRouter();
 
 const next = () => {
   current.value = (current.value + 1) % total;
+  startAutoScroll();
 };
 const prev = () => {
   current.value = (current.value - 1 + total) % total;
+  startAutoScroll();
 };
 
 const getPosition = (index: number) => {
-  if (index === current.value) return "active";
-  if (index === (current.value - 1 + total) % total) return "prev";
-  if (index === (current.value + 1) % total) return "next";
-  return "hidden";
+  if (index === current.value) return CarouselState.ACTIVE;
+  if (index === (current.value - 1 + total) % total) return CarouselState.PREV;
+  if (index === (current.value + 1) % total) return CarouselState.NEXT;
+  return CarouselState.HIDDEN;
 };
 
 const handleClick = (index: number, path?: string) => {
-  if (index === current.value && path) {
+  const pos = getPosition(index);
+
+  if (pos === CarouselState.ACTIVE && path) {
     router.push(path);
+  } else if (pos === CarouselState.PREV) {
+    prev();
+  } else if (pos === CarouselState.NEXT) {
+    next();
   }
 };
 
 const getTransform = (index: number) => {
   const pos = getPosition(index);
-  if (pos === "active") return "translateX(0%) scale(1)";
-  if (pos === "prev") return "translateX(-40%) scale(0.5)";
-  if (pos === "next") return "translateX(40%) scale(0.5)";
+  if (pos === CarouselState.ACTIVE) return "translateX(0%) scale(1)";
+  if (pos === CarouselState.PREV) return "translateX(-40%) scale(0.5)";
+  if (pos === CarouselState.NEXT) return "translateX(40%) scale(0.5)";
   return "translateX(0%) scale(0.75)";
 };
 
 const getZIndex = (index: number) => {
   const pos = getPosition(index);
-  if (pos === "active") return 11;
-  if (pos === "prev" || pos === "next") return 10;
+  if (pos === CarouselState.ACTIVE) return 11;
+  if (pos === CarouselState.PREV || pos === CarouselState.NEXT) return 10;
   return 0;
 };
 
-// let autoScroll: ReturnType<typeof setInterval> | null = null
+let autoScroll: ReturnType<typeof setInterval> | null = null
 
-// const startAutoScroll = () => {
-//   stopAutoScroll()
-//   autoScroll = setInterval(next, 5000)
-// }
-// const stopAutoScroll = () => {
-//   if (autoScroll) clearInterval(autoScroll)
-// }
+const startAutoScroll = () => {
+  stopAutoScroll()
+  autoScroll = setInterval(next, carouselConfig.interval)
+}
+const stopAutoScroll = () => {
+  if (autoScroll) clearInterval(autoScroll)
+}
 
-// onMounted(() => {
-//   startAutoScroll()
-// })
+onMounted(() => {
+  startAutoScroll()
+})
 
-// onBeforeUnmount(() => {
-//   stopAutoScroll()
-// })
+onBeforeUnmount(() => {
+  stopAutoScroll()
+})
 </script>
 
 <template>
-  <div class="relative w-full overflow-hidden rounded-xl h-110 flex items-center justify-center">
-    <div class="relative flex items-center justify-center h-full w-full">
+  <div class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-90 mx-auto z-21">
+    <div class="relative flex justify-center h-full w-full">
       <div
         v-for="(slide, index) in props.slides"
         :key="index"
-        class="absolute w-4/6 h-full rounded-xl overflow-hidden cursor-pointer transition-transform duration-700 ease-in-out"
-        :class="getPosition(index) === 'hidden' ? 'opacity-0 pointer-events-none' : (getPosition(index) === 'active' ? 'opacity-100' : 'opacity-70')"
+        class="absolute w-full sm:w-4/6 h-full rounded-none sm:rounded-xl overflow-hidden cursor-pointer transition-transform ease-in-out"
+        :class="getPosition(index) === CarouselState.HIDDEN ? 'opacity-0 pointer-events-none' : (getPosition(index) === CarouselState.ACTIVE ? 'opacity-100' : 'opacity-70')"
         :style="{
+          transitionDuration: carouselConfig.duration + 'ms',
           transform: getTransform(index),
           zIndex: getZIndex(index),
         }"
@@ -84,26 +95,26 @@ const getZIndex = (index: number) => {
         <img
           :src="slide.image"
           :alt="slide.text"
-          class="absolute inset-0 w-full h-full object-cover pointer-events-none"   
+          class="absolute inset-0 w-full h-full object-cover pointer-events-none" 
         />
       </div>
     </div>
 
     <button
       @click="prev"
-      class="absolute left-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white/50 hover:bg-white/80 shadow z-12"
+      class="absolute left-0 sm:left-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 bg-white/50 hover:bg-white/80 shadow z-22"
     >
       <Icon name="material-symbols:chevron-left-rounded" class="text-[var(--color-dark-gray)] size-6" />
     </button>
 
     <button
       @click="next"
-      class="absolute right-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-full bg-white/50 hover:bg-white/80 shadow z-12"
+      class="absolute right-0 sm:right-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 bg-white/50 hover:bg-white/80 shadow z-22"
     >
       <Icon name="material-symbols:chevron-right-rounded" class="text-[var(--color-dark-gray)] size-6" />
     </button>
 
-    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 bg-white/50 p-2 rounded-full z-12">
+    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 bg-white/50 p-2 rounded-full z-22">
       <div
         v-for="(slide, index) in props.slides"
         :key="index"

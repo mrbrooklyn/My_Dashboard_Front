@@ -38,19 +38,19 @@ const isAuthenticated = computed(() => authStore.isAuthenticated)
 const isLoading = computed(() => globalStore.isLoading)
 
 const handleLoginClick = () => {
-  authStore.setSelectedAuthContainer(AuthContainerType.Login)
+  authStore.setSelectedAuthContainer(AuthContainerType.LOGIN)
 }
 
 const handleRegisterClick = () => {
-  authStore.setSelectedAuthContainer(AuthContainerType.Register)  
+  authStore.setSelectedAuthContainer(AuthContainerType.REGISTER)  
 }
 
 const handleClick = async () => {
   const isHomePath = route.path === '/'
   if (isHomePath) {
-    handleScrollTo(BannerType.FirstBanner)
+    handleScrollTo(BannerType.FIRST_BANNER)
   } else {
-    router.push(`/#${BannerType.FirstBanner}`)
+    router.push(`/#${BannerType.FIRST_BANNER}`)
   }
 }
 

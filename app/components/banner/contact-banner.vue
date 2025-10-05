@@ -26,9 +26,9 @@ const props = defineProps<Props>()
 const contactList = props.contactList ?? []
 
 const { activeBanner } = useBannerObserver([
-  BannerType.FirstBanner,
-  BannerType.SecondBanner,
-  BannerType.ThirdBanner
+  BannerType.FIRST_BANNER,
+  BannerType.SECOND_BANNER,
+  BannerType.THIRD_BANNER
 ])
 
 const copyToClipboard = (text: string) => {
@@ -52,7 +52,7 @@ const copyToClipboard = (text: string) => {
             <div class="w-full max-w-lg mx-auto bg-[var(--color-custom-gray)]/50 p-10 rounded space-y-5">
                 <div v-for="(item, i) in contactList" :key="i" class="list-disc list-inside text-md text-[var(--color-medium-gray)]">
                     <div 
-                        v-if="item.type === HomeContactState.Text"
+                        v-if="item.type === HomeContactState.TEXT"
                         @click="copyToClipboard(item.value)" 
                         class="flex items-center gap-x-5 group cursor-pointer"
                     >
@@ -61,7 +61,7 @@ const copyToClipboard = (text: string) => {
                         <icon name="material-symbols:content-copy" size="20" class="text-[var(--color-dark-gray)] opacity-0 group-hover:opacity-100 transition-opacity" />
                     </div>
                     <a 
-                        v-if="item.type === HomeContactState.Link"
+                        v-if="item.type === HomeContactState.LINK"
                         :href="item.value" target="_blank" rel="noopener noreferrer" class="flex items-center gap-x-5 group hover:underline"
                     >
                         <img :src="item.image" class="w-6 h-6"/>
@@ -80,7 +80,7 @@ const copyToClipboard = (text: string) => {
                     alt="Contact-Decoration-02"
                     class="w-32 h-auto shadow-md"
                     :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                    :class="activeBanner === BannerType.ThirdBanner
+                    :class="activeBanner === BannerType.THIRD_BANNER
                         ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-x-10 visible'
                         : 'opacity-0 translate-x-0 invisible'"
                 />
@@ -91,7 +91,7 @@ const copyToClipboard = (text: string) => {
                     alt="Contact-Decoration-03"
                     class="w-40 h-auto shadow-md mb-10" 
                     :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                    :class="activeBanner === BannerType.ThirdBanner
+                    :class="activeBanner === BannerType.THIRD_BANNER
                         ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-y-10 visible'
                         : 'opacity-0 translate-y-0 invisible'"
                 />
@@ -102,7 +102,7 @@ const copyToClipboard = (text: string) => {
                     alt="Contact-Decoration-04"
                     class="w-48 h-auto shadow-md" 
                     :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                    :class="activeBanner === BannerType.ThirdBanner
+                    :class="activeBanner === BannerType.THIRD_BANNER
                         ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-y-0 visible'
                         : 'opacity-0 translate-y-10 invisible'"
                 />
@@ -113,7 +113,7 @@ const copyToClipboard = (text: string) => {
                     alt="Contact-Decoration-05" 
                     class="w-28 h-auto shadow-md" 
                     :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                    :class="activeBanner === BannerType.ThirdBanner
+                    :class="activeBanner === BannerType.THIRD_BANNER
                         ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-x-0 visible'
                         : 'opacity-0 translate-x-10 invisible'"
                 />
@@ -126,7 +126,7 @@ const copyToClipboard = (text: string) => {
                 alt="Contact-Decoration-01"
                 class="w-full h-full"
                 :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                :class="activeBanner === BannerType.ThirdBanner
+                :class="activeBanner === BannerType.THIRD_BANNER
                     ? 'opacity-100 translate-y-0 visible'
                     : 'opacity-0 translate-y-10 invisible'"
             />
@@ -138,7 +138,7 @@ const copyToClipboard = (text: string) => {
                 alt="Contact-Decoration-10"
                 class="w-50 h-50"
                 :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                :class="activeBanner === BannerType.ThirdBanner
+                :class="activeBanner === BannerType.THIRD_BANNER
                     ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-y-0 visible'
                     : 'opacity-0 translate-y-0 invisible'"
             />
@@ -150,7 +150,7 @@ const copyToClipboard = (text: string) => {
                 alt="Contact-Decoration-11"
                 class="w-60 h-70"
                 :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
-                :class="activeBanner === BannerType.ThirdBanner
+                :class="activeBanner === BannerType.THIRD_BANNER
                     ? 'opacity-0 sm:opacity-30 lg:opacity-100 translate-y-0 visible'
                     : 'opacity-0 translate-y-0 invisible'"
             />

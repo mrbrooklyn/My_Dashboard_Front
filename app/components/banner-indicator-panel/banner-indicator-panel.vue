@@ -11,10 +11,10 @@ export interface Props {
 const { menus, activeBanner } = defineProps<Props>()
 
 const getIndicatorState = (menu: IBannerTabMenu, index: number) => {
-  if (menu.value === activeBanner) return BannerIndicatorState.Active
+  if (menu.value === activeBanner) return BannerIndicatorState.ACTIVE
   const activeIndex = menus.findIndex(m => m.value === activeBanner)
-  if (activeIndex > index) return BannerIndicatorState.Past
-  return BannerIndicatorState.Coming
+  if (activeIndex > index) return BannerIndicatorState.PAST
+  return BannerIndicatorState.COMING
 }
 </script>
 

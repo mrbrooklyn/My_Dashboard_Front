@@ -27,10 +27,10 @@ const clearContainer = () => {
       class="fixed z-41 left-[50%] translate-x-[-50%] bottom-0 md:bottom-[50%] md:translate-y-[50%] duration-300"
     >
       <ContainerLogin
-        v-if="authStore.selectedAuthContainer === AuthContainerType.Login"
+        v-if="authStore.selectedAuthContainer === AuthContainerType.LOGIN"
       />
       <ContainerRegister
-        v-if="authStore.selectedAuthContainer === AuthContainerType.Register"
+        v-if="authStore.selectedAuthContainer === AuthContainerType.REGISTER"
       />
     </div>
   </Transition>

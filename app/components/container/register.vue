@@ -22,7 +22,7 @@ const handleHideAuthContainer = () => {
 }
 
 const handleShowRegisterContainer = () => {
-  authStore.setSelectedAuthContainer(AuthContainerType.Login)
+  authStore.setSelectedAuthContainer(AuthContainerType.LOGIN)
 }
 
 const form = reactive<RegisterForm>({

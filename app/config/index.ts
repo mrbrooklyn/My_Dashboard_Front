@@ -11,3 +11,8 @@ export const toastConfig = {
   pauseOnHover: true,
   closeOnClick: true,
 };
+
+export const carouselConfig = {
+  interval: 5000,
+  duration: 800,
+};
