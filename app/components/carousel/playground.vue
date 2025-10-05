@@ -34,7 +34,8 @@ const getPosition = (index: number) => {
 const handleClick = (index: number, path?: string) => {
   const pos = getPosition(index);
   if (pos === CarouselState.ACTIVE && path) {
-    router.push(path);
+    window.location.href = path;
+    //router.push(path);
   } else if (pos === CarouselState.PREV) {
     prev();
   } else if (pos === CarouselState.NEXT) {

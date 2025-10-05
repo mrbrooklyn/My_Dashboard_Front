@@ -67,13 +67,13 @@ onMounted(() => {
       <img class="w-30 h-10 object-contain" alt="my-dashboard" :src="Logo"/>
     </div>
     <div class="flex gap-x-3 items-center">
-      <template v-if="isLoading">
+      <template v-if="isLoading || !onRender">
         <Skeleton class="h-5 w-[100px]" />
         <Skeleton class="h-5 w-[100px]" />
         <Skeleton class="h-5 w-[30px]" />
       </template>
       <template v-else>
-        <div v-if="!isAuthenticated && onRender" class="flex gap-2 mr-3">
+        <div v-if="!isAuthenticated" class="flex gap-2 mr-3">
           <button
             class="text-sm rounded border"
             :class="locale === 'th' ? 'bg-black text-white border-black' : 'bg-white text-black border-gray-300'"
