@@ -78,7 +78,7 @@ onBeforeUnmount(() => {
 </script>
 
 <template>
-  <div class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-90 mx-auto z-21">
+  <div class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-50 md:h-65 lg:h-80 xl:h-110 mx-auto z-21">
     <div class="relative flex justify-center h-full w-full">
       <div
         v-for="(slide, index) in props.slides"
