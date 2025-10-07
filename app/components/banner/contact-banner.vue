@@ -11,7 +11,7 @@ import { toast } from 'vue3-toastify'
 import { toastConfig } from "~/config";
 import { BannerType, HomeContactState } from '~/enums'
 import { useBannerObserver } from '~/composables/utility/observer'
-import { bannerAnimation } from '~/config'
+import { bannerAnimation, zIndex } from '~/config'
 import type { IContactType } from '~/types/home'
 import { useI18n } from 'vue-i18n'
 
@@ -48,7 +48,7 @@ const copyToClipboard = (text: string) => {
         :style="{ backgroundImage: `url(${BannerUrl})` }"
     >
         <!-- Contact Card -->
-        <div class="container h-full mx-auto flex flex-col items-center justify-center gap-y-8 relative z-10">
+        <div class="container h-full mx-auto flex flex-col items-center justify-center gap-y-8 relative" :style="{ zIndex: zIndex.base }">
             <div class="w-full max-w-lg mx-auto bg-[var(--color-custom-gray)]/50 p-10 rounded space-y-5">
                 <div v-for="(item, i) in contactList" :key="i" class="list-disc list-inside text-md text-[var(--color-medium-gray)]">
                     <div 

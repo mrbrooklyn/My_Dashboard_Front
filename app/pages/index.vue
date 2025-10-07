@@ -1,10 +1,11 @@
 <script setup lang="ts">
-import { BannerType, BannerName, HomeContactState } from '~/enums';
-import { useBannerObserver } from '~/composables/utility/observer';
-import type { IBannerTabMenu } from '~/types/banner';
-import type { IContactType } from '~/types/home';
+import { BannerType, BannerName, HomeContactState } from '~/enums'
+import { useBannerObserver } from '~/composables/utility/observer'
+import type { IBannerTabMenu } from '~/types/banner'
+import type { IContactType } from '~/types/home'
 import type { ICarouselType } from '~/types/carousel'
 import { useI18n } from 'vue-i18n'
+import { zIndex } from '~/config'
 
 import PlaygroundSlide01EN from '~/assets/general/images/playground/playground-slide-01-en.svg'
 import PlaygroundSlide02EN from '~/assets/general/images/playground/playground-slide-02-en.svg'
@@ -77,8 +78,8 @@ const ContactList: IContactType[] = [
 </script>
 
 <template>
-  <BannerTabMenuPanel class="z-20" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
-  <BannerIndicatorPanel class="z-20" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
+  <BannerTabMenuPanel :style="{ zIndex: zIndex.bannerMenuTab }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
+  <BannerIndicatorPanel :style="{ zIndex: zIndex.bannerIndicator }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
   <div class="h-full w-full overflow-y-scroll snap-y snap-mandatory">
     <div class="relative">
       <BannerHomeBanner 

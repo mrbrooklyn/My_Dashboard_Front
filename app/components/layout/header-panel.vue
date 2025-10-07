@@ -1,13 +1,14 @@
 <script setup lang="ts">
 import Logo from '~/assets/general/images/logo.svg'
 import { handleScrollTo } from '~/composables/utility/handle-scroll'
-import { BannerType } from '~/enums';
+import { BannerType } from '~/enums'
 import { useRoute, useRouter } from 'vue-router'
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
 import { useGlobalStore } from '~/store/global'
 import { useI18n } from 'vue-i18n'
-import { useNuxtApp } from "#app";
+import { useNuxtApp } from "#app"
+import { zIndex } from '~/config'
 
 const nuxtApp = useNuxtApp();
 const authStore = useAuthStore()
@@ -61,7 +62,8 @@ onMounted(() => {
 
 <template>
   <div
-    class="fixed top-0 left-0 z-20 w-full h-[60px] flex justify-between items-center bg-white opacity-60 pl-2 pr-5 py-4 lg:pl-4 lg:pr-6 lg:py-5"
+    class="fixed top-0 left-0 w-full h-[60px] flex justify-between items-center bg-white opacity-60 pl-2 pr-5 py-4 lg:pl-4 lg:pr-6 lg:py-5"
+    :style="{ zIndex: zIndex.headerPanel }"
   >
     <div class="w-36 h-5 hover:cursor-pointer flex items-center" @click="handleClick">
       <img class="w-30 h-10 object-contain" alt="my-dashboard" :src="Logo"/>

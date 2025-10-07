@@ -1,15 +1,19 @@
 <script setup lang="ts">
 import { ref } from "vue";
 import type { ICarouselType } from '~/types/carousel'
-import { useRouter } from "vue-router";
-import { CarouselState } from "~/enums";
-import { carouselConfig } from "~/config"
+import { useRouter } from "vue-router"
+import { CarouselState, AuthContainerType } from "~/enums"
+import { carouselConfig, zIndex } from "~/config"
+import { useAuthStore } from '~/store/auth'
 
 export interface Props {
   slides: ICarouselType[]
 }
 
 const props = defineProps<Props>()
+
+const authStore = useAuthStore()
+const isAuthenticated = computed(() => authStore.isAuthenticated)
 
 const current = ref(0);
 const total = props.slides.length;
@@ -34,6 +38,11 @@ const getPosition = (index: number) => {
 const handleClick = (index: number, path?: string) => {
   const pos = getPosition(index);
   if (pos === CarouselState.ACTIVE && path) {
+    if(!isAuthenticated.value) {
+      authStore.setSelectedAuthContainer(AuthContainerType.LOGIN)
+      return
+    }
+    
     window.location.href = path;
     //router.push(path);
   } else if (pos === CarouselState.PREV) {
@@ -53,9 +62,17 @@ const getTransform = (index: number) => {
 
 const getZIndex = (index: number) => {
   const pos = getPosition(index);
-  if (pos === CarouselState.ACTIVE) return 11;
-  if (pos === CarouselState.PREV || pos === CarouselState.NEXT) return 10;
+  if (pos === CarouselState.ACTIVE) return zIndex.base + 1;
+  if (pos === CarouselState.PREV || pos === CarouselState.NEXT) return zIndex.base;
   return 0;
+};
+
+const onClickLogin = () => {
+    authStore.setSelectedAuthContainer(AuthContainerType.LOGIN)
+};
+
+const onClickRegister = () => {
+    authStore.setSelectedAuthContainer(AuthContainerType.REGISTER)
 };
 
 let autoScroll: ReturnType<typeof setInterval> | null = null
@@ -80,7 +97,7 @@ if (process.client) {
 </script>
 
 <template>
-  <div class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-50 md:h-65 lg:h-80 xl:h-110 mx-auto z-21">
+  <div class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-50 md:h-65 lg:h-80 xl:h-120 mx-auto" :style="{ zIndex: zIndex.carouselComponent }">
     <div class="relative flex justify-center h-full w-full">
       <div
         v-for="(slide, index) in props.slides"
@@ -94,6 +111,26 @@ if (process.client) {
         }"
         @click="handleClick(index, slide.path)"
       >
+        <div
+          v-if="!isAuthenticated"
+          class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 text-white"
+          :style="{ zIndex: zIndex.carouselComponent + 1 }"
+        >
+          <button 
+            class="border-2 border-white font-bold rounded-full shadow-lg hover:bg-white/60 hover:text-black/70 transition duration-300" 
+            @click.stop="onClickLogin()"
+          >
+            Sign in
+          </button>
+          or
+          <button 
+            class="border-2 border-white font-bold rounded-full shadow-lg hover:bg-white/60 hover:text-black/70 transition duration-300" 
+            @click.stop="onClickRegister()"
+          >
+            Sign up
+          </button>
+        </div>
+        
         <img
           :src="slide.image"
           :alt="slide.text"
@@ -104,25 +141,30 @@ if (process.client) {
 
     <button
       @click="prev"
-      class="absolute left-0 sm:left-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 bg-white/50 hover:bg-white/80 shadow z-22"
+      class="absolute left-0 sm:left-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 shadow bg-white/10 hover:bg-white/30 sm:bg-white/50 sm:hover:bg-white/80"
+      :style="{ zIndex: zIndex.carouselComponent }"
     >
-      <Icon name="material-symbols:chevron-left-rounded" class="text-[var(--color-dark-gray)] size-6" />
+      <Icon name="material-symbols:chevron-left-rounded" class="text-[var(--color-dark-gray)]" size="20" />
     </button>
 
     <button
       @click="next"
-      class="absolute right-0 sm:right-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 bg-white/50 hover:bg-white/80 shadow z-22"
+      class="absolute right-0 sm:right-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 shadow bg-white/10 hover:bg-white/30 sm:bg-white/50 sm:hover:bg-white/80"
+      :style="{ zIndex: zIndex.carouselComponent }"
     >
-      <Icon name="material-symbols:chevron-right-rounded" class="text-[var(--color-dark-gray)] size-6" />
+      <Icon name="material-symbols:chevron-right-rounded" class="text-[var(--color-dark-gray)]" size="20" />
     </button>
 
-    <div class="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-2 bg-white/50 p-2 rounded-full z-22">
+    <div
+      class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/50 p-2 rounded-full"
+      :style="{ zIndex: zIndex.carouselComponent }"
+    >
       <div
         v-for="(slide, index) in props.slides"
         :key="index"
         @click="current = index"
-        class="w-3 h-3 rounded-full cursor-pointer transition"
-        :class="current === index ? 'bg-[var(--color-dark-brown)]' : 'bg-gray-300'"
+        class="rounded-full cursor-pointer transition-all"
+        :class="[current === index ? 'bg-[var(--color-dark-gray)]/60 w-3 h-3' : 'bg-gray-400 w-2 h-2']"
       ></div>
     </div>
   </div>

@@ -3,8 +3,8 @@
   "go_home_button": "Go Back Home",
   "coming_soon": "Coming Soon...",
 
-  "login": "Login",
-  "register": "Register",
+  "login": "Sign In",
+  "register": "Sign Up",
   "logout": "Logout",
   "edit_profile": "Edit Profile",
 
@@ -15,11 +15,11 @@
   "home_text_header": "Hello There,",
   "home_text_detail": "Welcome to My Dashboard — a place where I collect concepts and ideas that interest me and experiment with them in my free time.",
 
-  "login_form": "Login Form",
+  "login_form": "Sign In Form",
   "login_form_not_memeber": "Not a member?",
   "login_form_signup_now": "Sign up now",
 
-  "register_form": "Register Form",
+  "register_form": "Sign Up Form",
   "register_form_already_member": "Already a member?",
   "register_form_signin_now": "Sign in now",
 

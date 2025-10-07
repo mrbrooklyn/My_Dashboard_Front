@@ -1,6 +1,7 @@
 <script lang="ts" setup>
 import { AuthContainerType } from '~/enums'
 import { useAuthStore } from '~/store/auth'
+import { zIndex } from '~/config'
 
 const authStore = useAuthStore()
 
@@ -15,7 +16,8 @@ const clearContainer = () => {
   <Transition name="fade">
     <div
       v-if="authStore.selectedAuthContainer !== null"
-      class="fixed z-40 top-0 left-0 w-full h-full bg-black/60"
+      class="fixed top-0 left-0 w-full h-full bg-black/60"
+      :style="{ zIndex: zIndex.authModal }"
       @click="clearContainer"
     ></div>
   </Transition>
@@ -24,7 +26,8 @@ const clearContainer = () => {
   <Transition name="slide-up">
     <div
       v-if="authStore.selectedAuthContainer !== null"
-      class="fixed z-41 left-[50%] translate-x-[-50%] bottom-0 md:bottom-[50%] md:translate-y-[50%] duration-300"
+      class="fixed left-[50%] translate-x-[-50%] bottom-0 md:bottom-[50%] md:translate-y-[50%] duration-300"
+      :style="{ zIndex: zIndex.authModal + 1 }"
     >
       <ContainerLogin
         v-if="authStore.selectedAuthContainer === AuthContainerType.LOGIN"

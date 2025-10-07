@@ -3,8 +3,8 @@ import { useAuthStore } from "~/store/auth"
 import { useAuthService } from '~/composables/services/use-auth'
 import { useGlobalStore } from '~/store/global'
 import { toast } from "vue3-toastify"
-import { toastConfig } from "~/config"
-import { ref, reactive, watch } from 'vue'
+import { toastConfig, zIndex } from "~/config"
+import { reactive, watch } from 'vue'
 import type { UpdateProfileForm, ChangePasswordForm } from '~/types/auth'
 import { useI18n } from 'vue-i18n'
 
@@ -199,8 +199,9 @@ watch(
 
 <template>
   <div
-    class="fixed z-30 w-screen max-w-[300px] h-full flex flex-col bg-gradient-to-b from-[var(--color-lavender-gray)] to-[var(--color-lavender-gray)] pt-6 duration-300"
+    class="fixed w-screen max-w-[300px] h-full flex flex-col bg-gradient-to-b from-[var(--color-lavender-gray)] to-[var(--color-lavender-gray)] pt-6 duration-300"
     :class="show ? 'right-0 opacity-100' : 'right-[-300px] opacity-0'"
+    :style="{ zIndex: zIndex.rightPanel }"
     id="right-panel"
   >
     <div class="flex justify-between items-center pr-4 pl-4  gap-4">

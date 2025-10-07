@@ -1,9 +1,9 @@
 <script lang="ts" setup>
-import { useAuthStore } from "~/store/auth";
-import { toast } from "vue3-toastify";
-import { toastConfig } from "~/config";
+import { useAuthStore } from "~/store/auth"
+import { toast } from "vue3-toastify"
+import { toastConfig, zIndex } from "~/config"
 import { useI18n } from 'vue-i18n'
-import { useNuxtApp } from "#app";
+import { useNuxtApp } from "#app"
 
 const nuxtApp = useNuxtApp();
 const authStore = useAuthStore();
@@ -46,9 +46,9 @@ const handleLogoutClick = () => {
 <template>
   <div
     @mouseleave="handleMouseLeave"
-    class="fixed z-30 w-screen max-w-[900px] h-full bg-gradient-to-b from-[var(--color-light-gray)] to-[var(--color-lavender-gray)] py-6 pr-4 pl-8 duration-300"
+    class="fixed w-screen max-w-[900px] h-full bg-gradient-to-b from-[var(--color-light-gray)] to-[var(--color-lavender-gray)] py-6 pr-4 pl-8 duration-300"
     :class="show ? 'top-0 right-0 opacity-100' : 'top-[-500px] right-[-400px] opacity-0'"
-    :style="{ clipPath: 'circle(50% at 100% 0%)' }"
+    :style="{ clipPath: 'circle(50% at 100% 0%)', zIndex: zIndex.rightPanel }"
     id="right-panel"
   >
     <div class="flex flex-col items-end gap-4">
