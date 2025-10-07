@@ -42,5 +42,6 @@
   "copy": "คัดลอก",
   "copied": "คัดลอกสำเร็จ",
   "is_required": "จำเป็นต้องกรอก",
-  "password_not_matched": "รหัสผ่านไม่ตรงกัน"
+  "password_not_matched": "รหัสผ่านไม่ตรงกัน",
+  "or": "หรือ"
 }

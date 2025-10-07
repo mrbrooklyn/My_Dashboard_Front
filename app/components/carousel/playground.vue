@@ -5,6 +5,7 @@ import { useRouter } from "vue-router"
 import { CarouselState, AuthContainerType } from "~/enums"
 import { carouselConfig, zIndex } from "~/config"
 import { useAuthStore } from '~/store/auth'
+import { useI18n } from 'vue-i18n'
 
 export interface Props {
   slides: ICarouselType[]
@@ -12,6 +13,7 @@ export interface Props {
 
 const props = defineProps<Props>()
 
+const { t } = useI18n()
 const authStore = useAuthStore()
 const isAuthenticated = computed(() => authStore.isAuthenticated)
 
@@ -120,14 +122,14 @@ if (process.client) {
             class="border-2 border-white font-bold rounded-full shadow-lg hover:bg-white/60 hover:text-black/70 transition duration-300" 
             @click.stop="onClickLogin()"
           >
-            Sign in
+            {{ t('login') }}
           </button>
-          or
+          {{ t('or') }}
           <button 
             class="border-2 border-white font-bold rounded-full shadow-lg hover:bg-white/60 hover:text-black/70 transition duration-300" 
             @click.stop="onClickRegister()"
           >
-            Sign up
+            {{ t('register') }}
           </button>
         </div>
         
