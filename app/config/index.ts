@@ -1,5 +1,8 @@
 import { toast as vueToast } from "vue3-toastify"
 
+export type LangCode = "en" | "th";
+export const defaultLanguage = "en" as LangCode;
+
 export const bannerAnimation = {
   duration: 800,
 };
@@ -29,4 +32,5 @@ export const zIndex = {
 
   // Components
   carouselComponent: 21,
-} as const;
+};
+

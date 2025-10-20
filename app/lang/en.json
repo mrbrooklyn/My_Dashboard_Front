@@ -42,5 +42,6 @@
   "copy": "Copy",
   "copied": "Copied",
   "is_required": "is required",
-  "password_not_matched": "Password not matched"
+  "password_not_matched": "Password not matched",
+  "or": "or"
 }

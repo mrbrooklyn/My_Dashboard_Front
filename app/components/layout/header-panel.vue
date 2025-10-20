@@ -20,7 +20,7 @@ export interface Props {
 
 const { onHamburgerClick } = defineProps<Props>()
 
-const $setLanguage = nuxtApp.$i18n as (lang: "en" | "th") => Promise<any>;
+const $setLanguage = nuxtApp.$i18n as (lang: string) => Promise<any>;
 const { t, locale } = useI18n()
 const onRender = ref<boolean>(false)
 

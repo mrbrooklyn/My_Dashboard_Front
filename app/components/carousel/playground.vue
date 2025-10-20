@@ -115,7 +115,7 @@ if (process.client) {
       >
         <div
           v-if="!isAuthenticated"
-          class="absolute inset-0 bg-black/40 flex items-center justify-center gap-3 text-white"
+          class="absolute inset-0 bg-black/30 flex items-center justify-center gap-3 text-white"
           :style="{ zIndex: zIndex.carouselComponent + 1 }"
         >
           <button 

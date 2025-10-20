@@ -25,7 +25,13 @@ const { activeBanner } = useBannerObserver([
         :style="{ backgroundImage: `url(${BannerUrl})` }"
     >
         <!-- Carousel -->
-        <div class="flex items-center h-full">
+        <div 
+            class="flex items-center h-full"
+            :style="{ transitionDuration: bannerAnimation.duration + 'ms' }"
+            :class="activeBanner === BannerType.SECOND_BANNER
+                ? 'opacity-100 translate-y-0 visible'
+                : 'opacity-0 translate-y-0 invisible'"
+        >
             <CarouselPlayground :slides="slide" />
         </div>  
 
