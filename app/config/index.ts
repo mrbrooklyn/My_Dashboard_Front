@@ -1,6 +1,6 @@
 import { toast as vueToast } from "vue3-toastify"
+import type { LangCode } from "~/types/global"
 
-export type LangCode = "en" | "th";
 export const defaultLanguage = "en" as LangCode;
 
 export const bannerAnimation = {

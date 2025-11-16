@@ -1,0 +1,14 @@
+version: "3.9"
+
+services:
+  frontend:
+    build:
+      context: .
+      args:
+        NODE_ENV: prod
+    container_name: frontend
+    # restart: always
+    env_file:
+      - ./.env.prod
+    ports:
+      - "3000:3000"

@@ -120,7 +120,7 @@ const copyToClipboard = (text: string) => {
             </div>
         </div>
 
-        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[250px] h-[30%] overflow-hidden pointer-events-none">
+        <div class="absolute bottom-0 left-1/2 transform -translate-x-1/2 w-[250px] h-[25%] overflow-hidden pointer-events-none">
             <img
                 :src="Decor01"
                 alt="Contact-Decoration-01"
@@ -132,7 +132,7 @@ const copyToClipboard = (text: string) => {
             />
         </div>
 
-        <div class="absolute top-[30%] left-[15%] w-[250px] h-[30%] overflow-hidden pointer-events-none">
+        <div class="absolute top-[30%] left-[15%] w-[250px] h-[250px] overflow-hidden pointer-events-none">
             <img
                 :src="Decor10"
                 alt="Contact-Decoration-10"
@@ -144,7 +144,7 @@ const copyToClipboard = (text: string) => {
             />
         </div>
 
-        <div class="absolute top-0 left-[5%] w-[250px] h-[30%] overflow-hidden pointer-events-none">
+        <div class="absolute top-0 left-[5%] w-[250px] h-[250px] overflow-hidden pointer-events-none">
             <img
                 :src="Decor11"
                 alt="Contact-Decoration-11"
