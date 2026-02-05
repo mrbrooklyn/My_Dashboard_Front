@@ -10,4 +10,11 @@
   --color-light-gray: #D1D5DB;
   --color-medium-gray: #4B5563;
   --color-dark-gray: #374151;
+
+  /* Orange */
+  --color-orange: #e38307;
+
+  /* Blue */
+  --color-gray-blue: #1d283a;
+  --color-dark-blue: #0f172a;
 }
