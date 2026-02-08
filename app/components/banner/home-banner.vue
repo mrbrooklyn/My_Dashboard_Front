@@ -35,6 +35,10 @@ const onClickRegister = () => {
     authStore.setSelectedAuthContainer(AuthContainerType.REGISTER)
 };
 
+const onClickAboutMe = () => {
+  window.location.href = '/about-me';
+};
+
 const fullText = ref(props.content);
 const displayText = ref(""); 
 const typingSpeed = 30; 
@@ -87,6 +91,22 @@ if (process.client) {
                     {{ displayText }}
                 </p>
                 
+                <div class="mt-4">
+                    <button @click="onClickAboutMe()" type="submit" class="group bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">
+                        <icon
+                            name="ic:sharp-search"
+                            size="15"
+                            class="text-white group-hover:text-black"
+                        />
+                        {{ t('learn_more_about_me') }}
+                        <icon
+                            name="material-symbols:account-circle"
+                            size="15"
+                            class="text-white group-hover:text-black"
+                        />
+                    </button>
+                </div>
+
                 <hr class="border-0 h-px my-5 bg-gradient-to-r from-transparent via-[var(--color-medium-gray)] to-transparent">
                 <div
                     v-if="!isAuthenticated"

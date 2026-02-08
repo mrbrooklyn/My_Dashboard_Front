@@ -14,8 +14,15 @@ COPY . .
 # Install dependencies
 RUN yarn install
 
+# if .env file does not exist, copy .env.example to .env
+# RUN if [ ! -f .env ]; then cp .env.example .env; fi
+
 # Copy the correct .env file based on the build argument
-COPY .env.$NODE_ENV .env
+# COPY .env.$NODE_ENV .env
+
+# RUN rm -f .env.example
+# RUN if [ -f .env ]; then rm -f .env; fi
+# RUN if [ -f .env.prod ]; then rm -f .env.prod; fi
 
 # Run the build command based on the environment
 RUN yarn build
