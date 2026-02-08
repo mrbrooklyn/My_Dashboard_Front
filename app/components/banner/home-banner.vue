@@ -92,8 +92,18 @@ if (process.client) {
                 </p>
                 
                 <div class="mt-4">
-                    <button @click="onClickAboutMe()" type="submit" class="bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">
-                        About Me
+                    <button @click="onClickAboutMe()" type="submit" class="group bg-black text-white w-full rounded-lg hover:bg-gray-400 hover:text-black">
+                        <icon
+                            name="ic:sharp-search"
+                            size="15"
+                            class="text-white group-hover:text-black"
+                        />
+                        {{ t('learn_more_about_me') }}
+                        <icon
+                            name="material-symbols:account-circle"
+                            size="15"
+                            class="text-white group-hover:text-black"
+                        />
                     </button>
                 </div>
 

@@ -6,3 +6,15 @@ export interface IContactType {
   value: string;
   image: string;
 }
+
+export interface ISkillCategoryType {
+  id: number;
+  value: string;
+}
+
+export interface ISkillType {
+  category: number;
+  name: string;
+  level: string;
+  icon: string;
+}
