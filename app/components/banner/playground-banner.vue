@@ -46,7 +46,7 @@ const { activeBanner } = useBannerObserver([
             <img
                 :src="Decor02"
                 alt="Decoration 02"
-                class="w-40 h-50 relative"
+                class="w-25 h-30 sm:w-40 sm:h-50 relative"
                 :style="{ zIndex: zIndex.base }"
             />
             <div class="absolute bottom-0 left-4 w-32 h-4 bg-black opacity-50 rounded-full blur-xl"></div>
@@ -62,7 +62,7 @@ const { activeBanner } = useBannerObserver([
             <img
                 :src="Decor01"
                 alt="Decoration 01"
-                class="w-70 h-90 relative"
+                class="w-40 h-50 sm:w-70 sm:h-90 relative"
                 :style="{ zIndex: zIndex.base }"
             />
             <div class="absolute top-30 right-15 w-32 h-4 bg-black opacity-50 rounded-full blur-xl"></div>
