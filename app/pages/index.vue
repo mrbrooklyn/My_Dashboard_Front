@@ -6,8 +6,6 @@ import type { IContactType } from '~/types/home'
 import type { ICarouselType } from '~/types/carousel'
 import { useI18n } from 'vue-i18n'
 import { zIndex } from '~/config'
-import RightPanel from '~/components/layout/right-panel.vue';
-import ProfilePanel from '~/components/layout/profile-panel.vue'
 
 import PlaygroundSlide01EN from '~/assets/general/images/playground/playground-slide-01-en.svg'
 import PlaygroundSlide02EN from '~/assets/general/images/playground/playground-slide-02-en.svg'
@@ -77,36 +75,9 @@ const ContactList: IContactType[] = [
     image: Linkedin
   },
 ]
-
-const showRightPanel = ref(false)
-const showProfilePanel = ref(false)
-
-const handleShowRightPanel = () => {
-  showRightPanel.value = true
-}
-
-const handleCloseRightPanel = () => {
-  showRightPanel.value = false
-}
-
-const handleShowProfilePanel = () => {
-  showProfilePanel.value = true
-}
-
-const handleCloseProfilePanel = () => {
-  showProfilePanel.value = false
-}
-
-const handleDefaultPanle = () => {
-  showRightPanel.value = true
-  showProfilePanel.value = false
-}
 </script>
 
 <template>
-  <LayoutHeaderPanel :onHamburgerClick="handleShowRightPanel" />
-  <RightPanel :show="showRightPanel" :onClosePanel="handleCloseRightPanel" :onChagePanel="handleShowProfilePanel" />
-  <ProfilePanel :show="showProfilePanel" :onClosePanel="handleCloseProfilePanel" :onChagePanel="handleDefaultPanle" />
   <BannerTabMenuPanel :style="{ zIndex: zIndex.bannerMenuTab }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
   <BannerIndicatorPanel :style="{ zIndex: zIndex.bannerIndicator }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
   <div class="h-full w-full overflow-y-scroll snap-y snap-mandatory">
