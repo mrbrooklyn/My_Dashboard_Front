@@ -96,10 +96,49 @@ if (process.client) {
     stopAutoScroll()
   })
 }
+
+// Swiping
+const touchStartX = ref(0)
+const touchEndX = ref(0)
+const isSwiping = ref(false)
+const minSwipeDistance = 50 // px threshold
+
+const onTouchStart = (e: TouchEvent) => {
+  stopAutoScroll()
+  isSwiping.value = true
+  touchStartX.value = e.touches?.[0]?.clientX ?? 0
+}
+
+const onTouchMove = (e: TouchEvent) => {
+  touchEndX.value = e.touches?.[0]?.clientX ?? 0
+}
+
+const onTouchEnd = () => {
+  const distance = touchEndX.value - touchStartX.value
+
+  if (Math.abs(distance) > minSwipeDistance) {
+    if (distance > 0) {
+      // Swipe Right
+      prev()
+    } else {
+      // Swipe Left
+      next()
+    }
+  }
+
+  isSwiping.value = false
+  startAutoScroll()
+}
 </script>
 
 <template>
-  <div class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-50 md:h-65 lg:h-80 xl:h-120 mx-auto" :style="{ zIndex: zIndex.carouselComponent }">
+  <div 
+    class="relative w-full sm:w-[80%] overflow-hidden h-60 sm:h-50 md:h-65 lg:h-80 xl:h-120 mx-auto" 
+    :style="{ zIndex: zIndex.carouselComponent }"
+    @touchstart="onTouchStart"
+    @touchmove="onTouchMove"
+    @touchend="onTouchEnd"
+  >
     <div class="relative flex justify-center h-full w-full">
       <div
         v-for="(slide, index) in props.slides"
@@ -141,7 +180,7 @@ if (process.client) {
       </div>
     </div>
 
-    <button
+    <!-- <button
       @click="prev"
       class="absolute left-0 sm:left-3 top-1/2 -translate-y-1/2 flex items-center justify-center rounded-none sm:rounded-full h-full sm:h-10 shadow bg-white/10 hover:bg-white/30 sm:bg-white/50 sm:hover:bg-white/80"
       :style="{ zIndex: zIndex.carouselComponent }"
@@ -155,7 +194,7 @@ if (process.client) {
       :style="{ zIndex: zIndex.carouselComponent }"
     >
       <Icon name="material-symbols:chevron-right-rounded" class="text-[var(--color-dark-gray)]" size="20" />
-    </button>
+    </button> -->
 
     <div
       class="absolute bottom-3 left-1/2 -translate-x-1/2 flex items-center gap-2 bg-white/50 p-2 rounded-full"
