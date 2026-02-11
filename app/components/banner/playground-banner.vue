@@ -49,7 +49,7 @@ const { activeBanner } = useBannerObserver([
                 class="w-25 h-30 sm:w-40 sm:h-50 relative"
                 :style="{ zIndex: zIndex.base }"
             />
-            <div class="absolute bottom-0 left-4 w-32 h-4 bg-black opacity-50 rounded-full blur-xl"></div>
+            <div class="absolute bottom-0 left-1 sm:bottom-0 sm:left-4 w-20 h-4 sm:w-32 sm:h-4 bg-black opacity-50 rounded-full blur-xl"></div>
         </div>
 
         <div 
@@ -65,7 +65,7 @@ const { activeBanner } = useBannerObserver([
                 class="w-40 h-50 sm:w-70 sm:h-90 relative"
                 :style="{ zIndex: zIndex.base }"
             />
-            <div class="absolute top-30 right-15 w-32 h-4 bg-black opacity-50 rounded-full blur-xl"></div>
+            <div class="absolute top-20 right-10 sm:top-30 sm:right-15 w-20 h-4 sm:w-32 sm:h-4 bg-black opacity-50 rounded-full blur-xl"></div>
         </div>
     </div>
 </template>
