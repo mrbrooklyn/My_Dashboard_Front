@@ -11,7 +11,7 @@ defineProps<Props>()
 </script>
 
 <template>
-    <div class="absolute top-20 w-full flex justify-center">
+    <div class="fixed top-20 w-full flex justify-center">
         <div class="flex">
             <BannerTabMenu v-for="(menu) in menus" :value="menu.value" :onClick="handleScrollTo" :active="menu.value === activeBanner">
                 {{ menu.text }}
