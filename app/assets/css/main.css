@@ -50,3 +50,22 @@ button {
   padding: 10px 12px;
   gap: 5px;
 }
+
+.desktop-only {
+  display: none;
+}
+
+.mobile-only {
+  display: block;
+}
+
+/* case when width is 768px or larger */
+@media (min-width: 768px) {
+  .desktop-only {
+    display: block;
+  }
+
+  .mobile-only {
+    display: none;
+  }
+}

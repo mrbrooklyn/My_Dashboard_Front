@@ -79,7 +79,9 @@ const ContactList: IContactType[] = [
 
 <template>
   <BannerTabMenuPanel :style="{ zIndex: zIndex.bannerMenuTab }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
-  <BannerIndicatorPanel :style="{ zIndex: zIndex.bannerIndicator }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
+  <div class="desktop-only">
+    <BannerIndicatorPanel :style="{ zIndex: zIndex.bannerIndicator }" :menus="BannerTabMenus" :activeBanner="activeBanner ?? BannerType.FIRST_BANNER" />
+  </div>
   <div class="h-full w-full overflow-y-scroll snap-y snap-mandatory">
     <div class="relative">
       <BannerHomeBanner 

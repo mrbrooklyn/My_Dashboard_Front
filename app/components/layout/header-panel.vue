@@ -91,7 +91,7 @@ onMounted(() => {
             EN
           </button>
         </div>
-        <div v-if="!isAuthenticated" class="hidden sm:block">
+        <div v-if="!isAuthenticated" class="desktop-only">
           <ButtonMenu
             iconName="stash:signin"
             className="h-8"
@@ -100,7 +100,7 @@ onMounted(() => {
             {{ t('login') }}
           </ButtonMenu>
         </div>
-        <div v-if="!isAuthenticated" class="hidden sm:block">
+        <div v-if="!isAuthenticated" class="desktop-only">
           <ButtonMenu
             iconName="material-symbols:person-add-outline"
             className="h-8"
