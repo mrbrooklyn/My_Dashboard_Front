@@ -43,10 +43,11 @@ const copyToClipboard = (text: string) => {
 </script>
 
 <template>
-    <div
+    <!-- <div
         class="relative w-full h-screen bg-no-repeat bg-center bg-cover snap-start"
         :style="{ backgroundImage: `url(${BannerUrl})` }"
-    >
+    > -->
+    <div class="relative w-full h-screen snap-start bg-gradient-to-b from-[var(--color-background-second)] to-[var(--color-background-third)]">
         <!-- Contact Card -->
         <div class="container h-full mx-auto flex flex-col items-center justify-center gap-y-8 relative" :style="{ zIndex: zIndex.base }">
             <div class="w-full max-w-lg mx-auto bg-[var(--color-custom-gray)]/50 p-10 rounded space-y-5">
