@@ -20,10 +20,11 @@ const { activeBanner } = useBannerObserver([
 </script>
 
 <template>
-    <div
+    <!-- <div
         class="relative w-full h-screen bg-no-repeat bg-center bg-cover snap-start"
         :style="{ backgroundImage: `url(${BannerUrl})` }"
-    >
+    > -->
+    <div class="relative w-full h-screen snap-start bg-gradient-to-b from-[var(--color-background-second)] to-[var(--color-background-second)]">
         <!-- Carousel -->
         <div 
             class="flex items-center h-full"

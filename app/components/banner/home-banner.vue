@@ -78,10 +78,11 @@ if (process.client) {
 </script>
 
 <template>
-    <div
+    <!-- <div
         class="relative w-full h-screen bg-no-repeat bg-center bg-cover snap-start"
         :style="{ backgroundImage: `url(${BannerUrl})` }"
-    >
+    > -->
+    <div class="relative w-full h-screen snap-start bg-gradient-to-b from-[var(--color-background-first)] to-[var(--color-background-second)]">
         <div class="container h-full mx-auto flex flex-col items-center justify-center gap-y-8">
             <div class="w-full h-1/2 mx-auto flex flex-col justify-center md:h-auto max-w-[300px] sm:max-w-[400px] md:max-w-[500px] lg:max-w-[600px]">
                 <h1 class="text-3xl lg:text-5xl text-center mb-4">
