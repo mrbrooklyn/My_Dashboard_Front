@@ -9,7 +9,7 @@ export const useAuthService = () => {
   const $api = nuxtApp.$api as (endpoint: string, options?: any) => Promise<any>;
 
   const login = async (payload: LoginPayload) => {
-    const response = (await $api("auth/login", {
+    const response = (await $api("api/auth/login", {
       method: Method.POST,
       body: payload,
     })) as UserProfileListResponse;
@@ -23,7 +23,7 @@ export const useAuthService = () => {
   };
   
   const register = async (payload: RegisterPayload) => {
-    const response = (await $api("auth/register", {
+    const response = (await $api("api/auth/register", {
       method: Method.POST,
       body: payload,
     })) as UserProfileListResponse;
@@ -37,7 +37,7 @@ export const useAuthService = () => {
   };
   
   const profile = async () => {
-    const response = (await $api("users/profile", {
+    const response = (await $api("api/users/profile", {
       method: Method.GET,
     })) as ProfileResponse;
 
@@ -49,7 +49,7 @@ export const useAuthService = () => {
   };
 
   const refreshToken = async (access_token: string) => {
-    const response = (await $api("auth/refresh-token", {
+    const response = (await $api("api/auth/refresh-token", {
       method: Method.POST,
       body: { token: access_token },
     })) as TokenResponse;
@@ -61,7 +61,7 @@ export const useAuthService = () => {
   };
   
   const updateProfile = async (payload: UpdateProfilePayload) => {
-    const response = (await $api("users/profile", {
+    const response = (await $api("api/users/profile", {
       method: Method.PUT,
       body: payload,
     })) as UserProfileListResponse;
@@ -74,7 +74,7 @@ export const useAuthService = () => {
   };
   
   const changePassword = async (payload: ChangePasswordPayload) => {
-    const response = (await $api("auth/reset-password", {
+    const response = (await $api("api/auth/reset-password", {
       method: Method.POST,
       body: payload,
     })) as UserProfileListResponse;
